@@ -1,8 +1,8 @@
-// Registration.js
-
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const Registration = () => {
+  const history = useHistory();
   const [step, setStep] = useState(1);
   const [basicInfo, setBasicInfo] = useState({ username: '', password: '' });
   const [details, setDetails] = useState({ fullName: '', email: '' });
@@ -21,8 +21,10 @@ const Registration = () => {
     // Combine basicInfo and details and send to the server for registration
     // You can add validation and error handling here
     console.log({ ...basicInfo, ...details });
+    history.push('/');
     // Reset the form or navigate to the next step
   };
+
 
   return (
     <div>
@@ -75,7 +77,7 @@ const Registration = () => {
               />
             </label>
             <br />
-            <button type="submit">Submit</button>
+            <button onClick={handleDetailsSubmit}>Submit</button>
           </form>
         </>
       )}
