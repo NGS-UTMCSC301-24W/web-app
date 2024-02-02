@@ -24,10 +24,12 @@ const App = () => {
         </nav>
 
         <hr />
-
-        <Route path="/" exact component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
+        <switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+        </switch>
+        
       </div>
     </Router>
   );
