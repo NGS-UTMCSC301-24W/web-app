@@ -5,6 +5,8 @@ const { getSignedUrl } = require('@aws-sdk/s3-request-presigner')
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3')
 const Joi = require('joi');
 
+const userRoutes = require('./routes/userRoutes');
+
 const prisma = new PrismaClient()
 const app = express()
 
@@ -57,6 +59,8 @@ app.get(`/listing-create-upload-url`, async (req, res) => {
 
   return res.json(await getSignedUrl(client, command, { expiresIn: 60 * 60 }));
 });
+
+app.use('/users', userRoutes);
 
 const server = app.listen(3001, () =>
   console.log(`Server started at: http://localhost:3001`),
