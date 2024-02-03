@@ -20,10 +20,10 @@ app.post(`/listing`, async (req, res) => {
     images: Joi.array().items(Joi.string()).required(),
     latitude: Joi.number().required(),
     longitude: Joi.number().required(),
-  }).validate(req.body);
+  }).validate(req.body, { abortEarly: false });
 
   if (validation.error) {
-    return res.status(400).json(validation.error.details);
+    return res.status(400).json(validation.error.details.map(detail => detail.message).join(", "));
   }
 
   const result = await prisma.rentalListing.create({ data: validation.value })
