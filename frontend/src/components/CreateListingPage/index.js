@@ -8,6 +8,7 @@ const CreateListingPage = () => {
   const [formData, setFormData] = useState({
     "title": "",
     "description": "",
+    "address": "",
     "price": 0,
     "images": [],
     "latitude": constants.UTM_LOCATION[1],
@@ -55,6 +56,13 @@ const CreateListingPage = () => {
         type="textarea"
         name="description"
         value={formData.description}
+        onChange={handleChange}
+      />
+      <FormField
+        label="Address: "
+        type="text"
+        name="address"
+        value={formData.address}
         onChange={handleChange}
       />
       <FormField
