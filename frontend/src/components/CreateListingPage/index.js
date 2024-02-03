@@ -17,11 +17,6 @@ const CreateListingPage = () => {
 
   const handleChange = (e) => {
     let { name, value } = e.target;
-
-    if (name === "price") {
-      value = parseInt(value);
-    }
-
     setFormData((o) => ({ ...o, [name]: value }));
   };
 
