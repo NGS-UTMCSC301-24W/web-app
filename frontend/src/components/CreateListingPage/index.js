@@ -34,8 +34,11 @@ const CreateListingPage = () => {
       body: JSON.stringify(formData),
     });
 
-    if (response.ok) {
+    if (response.status === 201) {
       alert("Listing created!");
+    } else if (response.status === 400) {
+      const errorMessage = await response.json();
+      alert("Failed to create listing. Reason: " + errorMessage);
     } else {
       alert("Failed to create listing");
     }
