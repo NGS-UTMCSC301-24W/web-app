@@ -3,6 +3,7 @@ const cors = require('cors')
 const { PrismaClient } = require('@prisma/client')
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner')
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3')
+const Joi = require('joi');
 
 const prisma = new PrismaClient()
 const app = express()
@@ -11,7 +12,20 @@ app.use(express.json())
 app.use(cors());
 
 app.post(`/listing`, async (req, res) => {
-  const result = await prisma.rentalListing.create({ data: req.body })
+  const validation = Joi.object({
+    title: Joi.string().min(3).max(200).required(),
+    description: Joi.string().required(),
+    price: Joi.number().min(0).required(),
+    images: Joi.array().items(Joi.string()).required(),
+    latitude: Joi.number().required(),
+    longitude: Joi.number().required(),
+  }).validate(req.body);
+
+  if (validation.error) {
+    return res.status(400).json(validation.error.details);
+  }
+
+  const result = await prisma.rentalListing.create({ data: validation.value })
     .catch(e => {
       console.error(e);
       return false;
