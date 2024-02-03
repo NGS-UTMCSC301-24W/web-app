@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const { PrismaClient } = require('@prisma/client')
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner')
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3')
@@ -7,6 +8,7 @@ const prisma = new PrismaClient()
 const app = express()
 
 app.use(express.json())
+app.use(cors());
 
 app.post(`/listing`, async (req, res) => {
   const result = await prisma.rentalListing.create({ data: req.body })
@@ -41,6 +43,6 @@ app.get(`/listing-create-upload-url`, async (req, res) => {
   return res.json(await getSignedUrl(client, command, { expiresIn: 60 * 60 }));
 });
 
-const server = app.listen(3000, () =>
-  console.log(`Server started at: http://localhost:3000`),
+const server = app.listen(3001, () =>
+  console.log(`Server started at: http://localhost:3001`),
 )
