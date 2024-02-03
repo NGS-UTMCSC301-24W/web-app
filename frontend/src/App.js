@@ -1,9 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/RegisterForm';
 import Filter from "./components/Filter";
+import CreateListingPage from './components/CreateListingPage';
 
 const App = () => {
   return (
@@ -23,16 +24,20 @@ const App = () => {
             <li>
               <Link to="/filter">Filter</Link>
             </li>
+            <li>
+              <Link to="/create-listing">Create Listing</Link>
+            </li>
           </ul>
         </nav>
 
         <hr />
-        <switch>
+        <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/filter" component={Filter}/>
-        </switch>
+          <Route path="/create-listing" component={CreateListingPage}/>
+        </Switch>
       </div>
     </Router>
   );

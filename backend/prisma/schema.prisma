@@ -6,3 +6,14 @@ datasource db {
   provider = "mongodb"
   url      = "mongodb+srv://uhome:jIUYvEAfe0Ei5LBK@uhomecluster.n5eb67d.mongodb.net/db?authSource=admin&retryWrites=true&w=majority"
 }
+
+model RentalListing {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  address     String
+  price       Int
+  images      String[]
+  latitude    Float
+  longitude   Float
+}
