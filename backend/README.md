@@ -8,7 +8,7 @@ npm install
 That's all.
 
 ### Running API
-Before running the following command, note that you should change your directory to backend/src folder, i.e. your working directory should look like `../web-app/backend/src`.
+Before running the following command, note that you should change your directory to backend/src folder, i.e. your working directory should look like `../web-app/backend`.
 ```sh
 npm run dev
 ```
