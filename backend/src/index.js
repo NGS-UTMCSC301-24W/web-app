@@ -15,6 +15,7 @@ app.post(`/listing`, async (req, res) => {
   const validation = Joi.object({
     title: Joi.string().min(3).max(200).required(),
     description: Joi.string().required(),
+    address: Joi.string().required(),
     price: Joi.number().min(0).required(),
     images: Joi.array().items(Joi.string()).required(),
     latitude: Joi.number().required(),

@@ -11,6 +11,7 @@ model RentalListing {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   description String
+  address     String
   price       Int
   images      String[]
   latitude    Float
