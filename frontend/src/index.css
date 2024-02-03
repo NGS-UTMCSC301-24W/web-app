@@ -1,34 +1,35 @@
 /* src/index.css */
 body {
-    font-family: 'Arial', sans-serif;
-  }
-  
-  .App {
-    text-align: center;
-    margin-top: 50px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    max-width: 300px;
-    margin: auto;
-  }
-  
-  label {
-    margin-bottom: 10px;
-  }
-  
-  input {
-    padding: 5px;
-    margin-bottom: 15px;
-  }
-  
-  button {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
-    border: none;
-  }
-  
+  font-family: 'Arial', sans-serif;
+}
+
+.App {
+  text-align: center;
+  margin-top: 50px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: auto;
+}
+
+label {
+  margin-bottom: 10px;
+}
+
+input {
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+@import "../node_modules/ol/ol.css";
