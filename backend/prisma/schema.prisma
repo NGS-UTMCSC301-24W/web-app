@@ -1,0 +1,8 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = "mongodb://uhome:jIUYvEAfe0Ei5LBK@uhomecluster.n5eb67d.mongodb.net/?authSource=admin&retryWrites=true&w=majority"
+}
