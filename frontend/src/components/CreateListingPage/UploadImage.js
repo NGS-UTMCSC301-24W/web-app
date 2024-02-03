@@ -8,7 +8,7 @@ const UploadImage = ({ onUpload, ...args }) => {
   const onChange = async (e) => {
     setUploadState("uploading");
 
-    const uploadURL = await fetch(`${constants.API_BASE_URL}/listing-create-upload-url`).then(r => r.json());
+    const uploadURL = await fetch(`${constants.API_BASE_URL}/listings/upload-image-url`).then(r => r.json());
 
     const file = e.target.files[0];
     await fetch(uploadURL, {

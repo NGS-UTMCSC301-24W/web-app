@@ -21,7 +21,7 @@ const CreateListingPage = () => {
   };
 
   const createListing = async () => {
-    const response = await fetch(`${constants.API_BASE_URL}/listing`, {
+    const response = await fetch(`${constants.API_BASE_URL}/listings/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
