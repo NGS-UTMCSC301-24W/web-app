@@ -65,7 +65,7 @@ async function getAllListings(req, res) {
   const listing = new ListingService(prisma);
 
   try {
-    const allListings = await listing.getAllListings(); // Implement this method in your ListingService
+    const allListings = await listing.getAllListings();
     res.json(allListings);
   } catch (err) {
     console.error('Error retrieving all listings:', err);

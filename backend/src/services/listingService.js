@@ -20,7 +20,7 @@ class ListingService {
   }
 
   async getAllListings() {
-      return this.prisma.rentalListing.findMany();
+      return this.prisma.rentalListing.findMany()
   }
 }
 
