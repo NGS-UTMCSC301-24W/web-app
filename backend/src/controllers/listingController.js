@@ -1,4 +1,5 @@
 const { ListingService } = require('../services/listingService');
+const { filterListings } = require('../util/filter')
 
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner')
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3')
@@ -49,7 +50,39 @@ async function getUploadImageUrl(req, res) {
   return res.json(await getSignedUrl(client, command, { expiresIn: 60 * 60 }));
 }
 
+async function getAllListings(req, res) {
+  const prisma = req.app.locals.prisma;
+  const listing = new ListingService(prisma);
+
+  try {
+    const allListings = await listing.getAllListings(); // Implement this method in your ListingService
+    res.json(allListings);
+  } catch (err) {
+    console.error('Error retrieving all listings:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+async function getFilteredListings(req, res) {
+  const prisma = req.app.locals.prisma;
+  const listing = new ListingService(prisma);
+
+  const filter = { ...req.query };
+
+  try {
+    const allListings = await listing.getAllListings();
+    const filteredListings = filterListings(allListings, filter);
+
+    res.json(filteredListings);
+  } catch (err) {
+    console.error('Error retrieving filtered listings:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 module.exports = {
   createListing,
   getUploadImageUrl,
+  getAllListings,
+  getFilteredListings,
 };

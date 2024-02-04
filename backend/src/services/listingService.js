@@ -10,6 +10,10 @@ class ListingService {
         return false;
       });
   }
+
+    async getAllListings() {
+    return this.prisma.rentalListing.findMany();
+  }
 }
 
 module.exports = {

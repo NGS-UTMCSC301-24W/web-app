@@ -22,7 +22,7 @@ const App = () => {
               <Link to="/register">Register</Link>
             </li>
             <li>
-              <Link to="/filter">Filter</Link>
+              <Link to="/listing">Filter</Link>
             </li>
             <li>
               <Link to="/create-listing">Create Listing</Link>
@@ -35,7 +35,7 @@ const App = () => {
           <Route path="/" exact component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/filter" component={Filter}/>
+          <Route path="/listing" component={Filter}/>
           <Route path="/create-listing" component={CreateListingPage}/>
         </Switch>
       </div>
