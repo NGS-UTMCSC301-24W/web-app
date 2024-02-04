@@ -5,24 +5,38 @@ const Registration = () => {
   const history = useHistory();
   const [step, setStep] = useState(1);
   const [basicInfo, setBasicInfo] = useState({ username: '', password: '' });
-  const [details, setDetails] = useState({ fullName: '', email: '' });
+  const [details, setDetails] = useState({ email: '' });
 
   const handleBasicInfoSubmit = (e) => {
     e.preventDefault();
-    // Validate basic info if needed
-    // Save basic info to state
-    // You can add validation and error handling here
     setStep(2);
   };
 
-  const handleDetailsSubmit = (e) => {
+  const handleDetailsSubmit = async (e) => {
     e.preventDefault();
-    // Validate details if needed
-    // Combine basicInfo and details and send to the server for registration
-    // You can add validation and error handling here
-    console.log({ ...basicInfo, ...details });
-    history.push('/');
-    // Reset the form or navigate to the next step
+    const userData = { ...basicInfo, ...details };
+
+    console.log( userData)
+    try {
+      // Send POST request to backend
+      const response = await fetch('http://localhost:3001/users/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+      console.log("---", userData)
+      if (response.ok) {
+        console.log('User registered successfully');
+        history.push('/');
+      } else {
+        console.error('Failed to register user');
+        console.error('Status Code:', response.status);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
 
@@ -59,14 +73,6 @@ const Registration = () => {
         <>
           <h2>Step 2: Additional Details</h2>
           <form onSubmit={handleDetailsSubmit}>
-            <label>
-              Full Name:
-              <input
-                type="text"
-                value={details.fullName}
-                onChange={(e) => setDetails({ ...details, fullName: e.target.value })}
-              />
-            </label>
             <br />
             <label>
               Email:
@@ -77,7 +83,7 @@ const Registration = () => {
               />
             </label>
             <br />
-            <button onClick={handleDetailsSubmit}>Submit</button>
+            <button type='submit'>Submit</button>
           </form>
         </>
       )}
