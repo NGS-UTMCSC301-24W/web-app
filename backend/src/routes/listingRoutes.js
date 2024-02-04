@@ -1,6 +1,6 @@
 const express = require('express');
 const { createListing, getUploadImageUrl,
-    getAllListings, getFilteredListings } = require('../controllers/listingController');
+    getAllListings, getFilteredListings, getListing } = require('../controllers/listingController');
 
 const router = express.Router();
 
@@ -9,5 +9,6 @@ router.post('/create', createListing);
 router.get('/upload-image-url', getUploadImageUrl);
 router.get('/all', getAllListings);
 router.get('/filter', getFilteredListings);
+router.get('/:id', getListing);
 
 module.exports = router;

@@ -11,8 +11,16 @@ class ListingService {
       });
   }
 
-    async getAllListings() {
-    return this.prisma.rentalListing.findMany();
+  async getListing(id) {
+    return this.prisma.rentalListing.findUnique({ where: { id } })
+      .catch(e => {
+        console.error(e);
+        return false;
+      });
+  }
+
+  async getAllListings() {
+      return this.prisma.rentalListing.findMany();
   }
 }
 
