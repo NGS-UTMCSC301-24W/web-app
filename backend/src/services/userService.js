@@ -1,25 +1,16 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+// userService.js
+const userModel = require('../models/userModel');
 
-async function registerUser(userData) {
+async function createUser(username, password, email ) {
   try {
-    const newUser = await prisma.user.create({
-      data: {
-        username: userData.username,
-        email: userData.email,
-        password: userData.password, 
-      },
-    });
-
-    return newUser;
+    const user = await userModel.createUser( username, password, email );
+    return user;
   } catch (error) {
     console.error('Error creating user:', error);
     throw error;
-  } finally {
-    await prisma.$disconnect();
   }
 }
 
 module.exports = {
-  registerUser,
+  createUser,
 };
