@@ -127,6 +127,10 @@ const Filter = () => {
                 <strong>Title: {listing.title}</strong>
                 <p>Description: {listing.description}</p>
                 <p>Price: {listing.price}</p>
+                <p>Number of Bedrooms: {listing.roomCount.bedrooms}</p>
+                <p>Number of Bathrooms: {listing.roomCount.bathrooms}</p>
+                <p>Type: {listing.structuralType}</p>
+                <p>Leaser: {listing.leaser}</p>
                 {/* Display other listing details */}
               </li>
           ))}
