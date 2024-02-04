@@ -17,3 +17,10 @@ model RentalListing {
   latitude    Float
   longitude   Float
 }
+
+model User {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  username    String
+  password    String   // Assuming password is a string, update the type accordingly
+  email       String
+}

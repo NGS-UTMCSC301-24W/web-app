@@ -1,15 +1,17 @@
 const userService = require('../services/userService');
 
-async function registerUser(req, res) {
+const registerUserController = async (req, res) => {
+  const { username, password, email } = req.body;
   try {
-    const newUser = await userService.registerUser(req.body);
-    res.status(201).json(newUser);
+    const newUser = await userService.createUser(username, password, email);
+
+    res.status(201).json({ message: 'User registered successfully', user: newUser });
   } catch (error) {
-    console.error('Error registering user:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Error during user registration:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
-}
+};
 
 module.exports = {
-  registerUser,
+  registerUserController,
 };
