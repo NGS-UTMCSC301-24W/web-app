@@ -8,14 +8,39 @@ datasource db {
 }
 
 model RentalListing {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  description String
-  address     String
-  price       Int
-  images      String[]
-  latitude    Float
-  longitude   Float
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  title          String
+  description    String
+  address        String
+  price          Int
+  images         String[]
+  location       GeoJson
+  roomCount      RoomCount
+  structuralType StructuralType
+  leaser         Leaser
+}
+
+enum StructuralType {
+  HOUSE
+  BASEMENT
+  APARTMENT
+  CONDO
+  ROOM
+}
+
+enum Leaser {
+  OWNER
+  ROOMMATE
+}
+
+type GeoJson {
+  type        String  @default("Point")
+  coordinates Float[]
+}
+
+type RoomCount {
+  bedrooms  Int
+  bathrooms Int
 }
 
 model User {
