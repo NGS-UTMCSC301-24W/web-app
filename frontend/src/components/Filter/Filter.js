@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import constants from "../constants.json";
+import constants from "../../constants.json";
 
 const Filter = () => {
   const [listings, setListings] = useState([]);
@@ -77,26 +77,43 @@ const Filter = () => {
         </div>
         <div>
           <label>Bedrooms:</label>
-          <select name="bedrooms" value={filter.bedrooms} onChange={handleFilterChange}>
-            <option value="">Any</option>
+          <select
+              name="bedrooms"
+              value={filter.bedrooms}
+              onChange={handleFilterChange}
+              className={filter.bedrooms === '' ? 'required' : ''}
+          >
+            <option value="">
+              Any
+            </option>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100].map((value) => (
                 <option key={value} value={value}>
                   {value}
                 </option>
             ))}
           </select>
+          <span style={{color: 'red'}}>required</span>
         </div>
         <div>
           <label>Bathrooms:</label>
-          <select name="bathrooms" value={filter.bathrooms} onChange={handleFilterChange}>
-            <option value="">Any</option>
+          <select
+              name="bathrooms"
+              value={filter.bathrooms}
+              onChange={handleFilterChange}
+              className={filter.bathrooms === '' ? 'required' : ''}
+          >
+            <option value="">
+              Any
+            </option>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
                 <option key={value} value={value}>
                   {value}
                 </option>
             ))}
           </select>
+          <span style={{ color: 'red' }}>required</span>
         </div>
+
         <div>
           <label>Structural Type:</label>
           <select name="structuralType" value={filter.structuralType} onChange={handleFilterChange}>

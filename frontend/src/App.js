@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/RegisterForm';
-import Filter from "./components/Filter";
+import Filter from "./components/Filter/Filter";
 import CreateListingPage from './components/CreateListingPage';
 
 const App = () => {
