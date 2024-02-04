@@ -30,6 +30,18 @@ a {
     background-color: var(--utm-dark-blue);
 }
 
+.btn-primary{
+    color: var(--bs-white);
+    background-color: var(--utm-secondary-blue);
+    border-color: var(--utm-secondary-blue);
+    font-family: var(--sub-heading-font);
+}
+
+.btn-primary:hover{
+    background-color: var(--utm-dark-blue);
+    border-color: var(--utm-dark-blue);
+}
+
 footer{
     color: var(--bs-white);
 }
