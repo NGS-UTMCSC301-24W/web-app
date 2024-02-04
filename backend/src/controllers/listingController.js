@@ -59,7 +59,27 @@ async function getUploadImageUrl(req, res) {
   return res.json(await getSignedUrl(client, command, { expiresIn: 60 * 60 }));
 }
 
+async function getListing(req, res) {
+  const validation = Joi.object({
+    id: Joi.string().alphanum().length(24).required(),
+  }).validate(req.params, { abortEarly: false });
+  
+  if (validation.error) {
+    return res.status(400).json(validation.error.details.map(detail => detail.message).join(", "));
+  }
+
+  const listingService = new ListingService(req.app.locals.prisma);
+  const result = await listingService.getListing(req.params.id);
+
+  if (!result) {
+    return res.status(404).json(`Listing not found.`);
+  }
+
+  return res.status(200).json(result);
+}
+
 module.exports = {
   createListing,
   getUploadImageUrl,
+  getListing,
 };

@@ -10,6 +10,14 @@ class ListingService {
         return false;
       });
   }
+
+  async getListing(id) {
+    return this.prisma.rentalListing.findUnique({ where: { id } })
+      .catch(e => {
+        console.error(e);
+        return false;
+      });
+  }
 }
 
 module.exports = {
