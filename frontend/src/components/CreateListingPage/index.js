@@ -19,7 +19,6 @@ const CreateListingPage = () => {
     "structuralType": "HOUSE",
     "leaser": "OWNER"
   });
-  console.log(formData);
 
   const handleChange = (e) => {
     let { name, value } = e.target;
