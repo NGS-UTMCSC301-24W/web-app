@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/RegisterForm';
 import Filter from "./components/Filter";
+import Listings from './components/Listings';
 
 const App = () => {
   return (
@@ -23,6 +24,9 @@ const App = () => {
             <li>
               <Link to="/filter">Filter</Link>
             </li>
+            <li>
+              <Link to="/listings">Listings</Link>
+            </li>
           </ul>
         </nav>
 
@@ -32,6 +36,7 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/filter" component={Filter}/>
+          <Route path="/listings" component={Listings}/>
         </switch>
       </div>
     </Router>
