@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
+  const history = useHistory();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -11,10 +13,32 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Add logic to handle login (e.g., send data to backend for authentication)
-    console.log('Login submitted:', formData);
+    const userData = { ...formData };
+
+    console.log( userData)
+    try {
+      // Send POST request to backend
+      const response = await fetch('http://localhost:3001/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+      console.log("---", userData)
+      if (response.ok) {
+        console.log('User Login successfully');
+        history.push('/');
+      } else {
+        console.error('Failed to login user');
+        console.error('Status Code:', response.status);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
     // Reset form fields after submission
     setFormData({ username: '', password: '' });
   };
