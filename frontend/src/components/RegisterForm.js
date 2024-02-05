@@ -45,7 +45,7 @@ const Registration = () => {
       {step === 1 && (
         <>
           <h2>Step 1: Basic Information</h2>
-          <form onSubmit={handleBasicInfoSubmit}>
+          <form className='form-regis' onSubmit={handleBasicInfoSubmit}>
             <label>
               Username:
               <input
@@ -72,7 +72,7 @@ const Registration = () => {
       {step === 2 && (
         <>
           <h2>Step 2: Additional Details</h2>
-          <form onSubmit={handleDetailsSubmit}>
+          <form className='form-regis' onSubmit={handleDetailsSubmit}>
             <br />
             <label>
               Email:
