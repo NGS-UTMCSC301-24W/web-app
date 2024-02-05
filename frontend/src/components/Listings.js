@@ -14,7 +14,7 @@ const Listings = () => {
                     <a className="navbar-brand p-4" href="javascript:void(0)">Uhome</a>
 
                     <form className="d-flex align-items-center">
-                        <input className="form-control" type="text" placeholder="Search" />
+                        <input className="form-control me-2" type="text" placeholder="Search" />
                         <button className="btn btn-primary btn-sm" type="button">Search</button>
                     </form>
 
