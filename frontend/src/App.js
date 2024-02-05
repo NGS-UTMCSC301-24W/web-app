@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/RegisterForm';
-import Filter from "./components/Filter";
+import Filter from "./components/Filter/Filter";
 import Listings from './components/Listings';
 import CreateListingPage from './components/CreateListingPage';
 
@@ -27,7 +27,7 @@ const App = () => {
               <Link to="/register">Register</Link>
             </li>
             <li>
-              <Link to="/filter">Filter</Link>
+              <Link to="/listing">Filter</Link>
             </li>
             <li>
               <Link to="/listings">Listings</Link>
@@ -43,7 +43,7 @@ const App = () => {
           <Route path="/" exact component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/filter" component={Filter} />
+          <Route path="/listing" component={Filter}/>
           <Route path="/listings" component={Listings} />
           <Route path="/create-listing" component={CreateListingPage}/>
         </Switch>
