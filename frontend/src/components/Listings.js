@@ -1,6 +1,7 @@
 import React from 'react';
 import '../bs/css/bootstrap.css';
 import '../bs/css/custom.css';
+import '../bs/js/bootstrap.bundle.js';
 
 
 const Listings = () => {
@@ -12,8 +13,8 @@ const Listings = () => {
 
                     <a className="navbar-brand p-4" href="javascript:void(0)">Uhome</a>
 
-                    <form className="d-flex">
-                        <input className="form-control me-2" type="text" placeholder="Search" />
+                    <form className="d-flex align-items-center">
+                        <input className="form-control" type="text" placeholder="Search" />
                         <button className="btn btn-primary btn-sm" type="button">Search</button>
                     </form>
 
@@ -159,11 +160,11 @@ const Listings = () => {
                 <div className="mt-2 bg-utm-dark-blue container-fluid">
                     <section className="align-content-center text-center py-2">
                         <h4>Follow Uhome</h4>
-                        <ul className="row">
-                            <li>Instagram</li>
-                            <li>Twitter</li>
-                            <li>YouTube</li>
-                            <li>More Social Media</li>
+                        <ul class="list-unstyled">
+                            <li class="list-inline-item">Instagram</li>
+                            <li class="list-inline-item">Twitter</li>
+                            <li class="list-inline-item">YouTube</li>
+                            <li class="list-inline-item">More Social Media</li>
                         </ul>
                     </section>
                 </div>
