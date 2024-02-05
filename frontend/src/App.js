@@ -6,6 +6,7 @@ import Register from './components/RegisterForm';
 import Filter from "./components/Filter/Filter";
 import Listings from './components/Listings';
 import CreateListingPage from './components/CreateListingPage';
+import Details from './components/Details';
 
 import './bs/css/bootstrap.min.css';
 import './bs/css/custom.css';
@@ -35,6 +36,9 @@ const App = () => {
             <li>
               <Link to="/create-listing">Create Listing</Link>
             </li>
+            <li>
+              <Link to="/list/65bfafc116524254cd07f34b">Example Listing Details</Link>
+            </li>
           </ul>
         </nav>
 
@@ -46,6 +50,7 @@ const App = () => {
           <Route path="/listing" component={Filter}/>
           <Route path="/listings" component={Listings} />
           <Route path="/create-listing" component={CreateListingPage}/>
+          <Route path="/list/:id" component={Details}/>
         </Switch>
       </div>
     </Router >
