@@ -132,6 +132,46 @@ const Listings = () => {
                         </div>
                     </div> 
                 </div>
+
+                <div class="col-lg-3 col-md-4 col-sm-12 mt-2">
+                    <div class="card">
+                        <img class="card-img-top" src="" alt="Card image"/>
+                        <div class="card-body">
+                            <h4 class="card-title">Lisiting #9</h4>
+                            <p class="card-text">Lorem ipsum</p>
+                        </div>
+                    </div> 
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-sm-12 mt-2">
+                    <div class="card">
+                        <img class="card-img-top" src="" alt="Card image"/>
+                        <div class="card-body">
+                            <h4 class="card-title">Lisiting #10</h4>
+                            <p class="card-text">Lorem ipsum</p>
+                        </div>
+                    </div> 
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-sm-12 mt-2">
+                    <div class="card">
+                        <img class="card-img-top" src="" alt="Card image"/>
+                        <div class="card-body">
+                            <h4 class="card-title">Lisiting #11</h4>
+                            <p class="card-text">Lorem ipsum</p>
+                        </div>
+                    </div> 
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-sm-12 mt-2">
+                    <div class="card">
+                        <img class="card-img-top" src="" alt="Card image"/>
+                        <div class="card-body">
+                            <h4 class="card-title">Lisiting #12</h4>
+                            <p class="card-text">Lorem ipsum</p>
+                        </div>
+                    </div> 
+                </div>
                     
                 </div>
             </div>
@@ -147,7 +187,8 @@ const Listings = () => {
             </div>
 
             {/* Footer */}
-            <footer className="mt-5 mb-2 bg-primary">
+            <footer className="mt-5 bg-primary">
+                
                 <div className="container row px-4 py-4">
                     <section className="col-md-6 col-sm-12 px-2">
                         <h5>Privacy&Terms</h5>
@@ -157,7 +198,7 @@ const Listings = () => {
                     </section>
                 </div>
                 {/* socials */}
-                <div className="mt-2 bg-utm-dark-blue container-fluid">
+                <div className="mt-2 bg-utm-dark-blue container-fluid py-3">
                     <section className="align-content-center text-center py-2">
                         <h4>Follow Uhome</h4>
                         <ul class="list-unstyled">
