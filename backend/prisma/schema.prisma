@@ -6,3 +6,46 @@ datasource db {
   provider = "mongodb"
   url      = "mongodb+srv://uhome:jIUYvEAfe0Ei5LBK@uhomecluster.n5eb67d.mongodb.net/db?authSource=admin&retryWrites=true&w=majority"
 }
+
+model RentalListing {
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  title          String
+  description    String
+  address        String
+  price          Int
+  images         String[]
+  location       GeoJson
+  roomCount      RoomCount
+  structuralType StructuralType
+  leaser         Leaser
+}
+
+enum StructuralType {
+  HOUSE
+  BASEMENT
+  APARTMENT
+  CONDO
+  ROOM
+}
+
+enum Leaser {
+  OWNER
+  ROOMMATE
+}
+
+type GeoJson {
+  type        String  @default("Point")
+  coordinates Float[]
+}
+
+type RoomCount {
+  bedrooms  Int
+  bathrooms Int
+}
+
+model User {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  username    String   @unique
+  password    String   // Assuming password is a string, update the type accordingly
+  email       String   @unique
+}

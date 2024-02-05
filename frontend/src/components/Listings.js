@@ -1,7 +1,4 @@
 import React from 'react';
-import '../bs/css/bootstrap.css';
-import '../bs/css/custom.css';
-import '../bs/js/bootstrap.bundle.js';
 
 
 const Listings = () => {
