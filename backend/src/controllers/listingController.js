@@ -13,15 +13,25 @@ async function createListing(req, res) {
     images: Joi.array().items(Joi.string()).required(),
     latitude: Joi.number().required(),
     longitude: Joi.number().required(),
+    bedrooms: Joi.number().min(0).required(),
+    bathrooms: Joi.number().min(0).required(),
+    structuralType: Joi.string().valid("HOUSE", "BASEMENT", "APARTMENT", "CONDO", "ROOM").required(),
+    leaser: Joi.string().valid("OWNER", "ROOMMATE").required()
   }).validate(req.body, { abortEarly: false });
 
   if (validation.error) {
     return res.status(400).json(validation.error.details.map(detail => detail.message).join(", "));
   }
 
-  const prisma = req.app.locals.prisma;
-  const listing = new ListingService(prisma);
-  const result = await listing.createListing(validation.value);
+  const { latitude, longitude, bedrooms, bathrooms, ...rest } = validation.value;
+  const newListing = {
+    ...rest,
+    location: { coordinates: [longitude, latitude] },
+    roomCount: { bedrooms, bathrooms },
+  };
+
+  const listingService = new ListingService(req.app.locals.prisma);
+  const result = await listingService.createListing(newListing);
 
   if (!result) {
     return res.status(400).json(`Unable to create listing.`);
@@ -49,7 +59,27 @@ async function getUploadImageUrl(req, res) {
   return res.json(await getSignedUrl(client, command, { expiresIn: 60 * 60 }));
 }
 
+async function getListing(req, res) {
+  const validation = Joi.object({
+    id: Joi.string().alphanum().length(24).required(),
+  }).validate(req.params, { abortEarly: false });
+  
+  if (validation.error) {
+    return res.status(400).json(validation.error.details.map(detail => detail.message).join(", "));
+  }
+
+  const listingService = new ListingService(req.app.locals.prisma);
+  const result = await listingService.getListing(req.params.id);
+
+  if (!result) {
+    return res.status(404).json(`Listing not found.`);
+  }
+
+  return res.status(200).json(result);
+}
+
 module.exports = {
   createListing,
   getUploadImageUrl,
+  getListing,
 };
