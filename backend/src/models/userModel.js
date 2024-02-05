@@ -1,40 +1,29 @@
+// userModel.js
 const { PrismaClient } = require('@prisma/client');
+
 const prisma = new PrismaClient();
 
-async function createUser({ username, email, password }) {
+async function createUser(username, password, email) {
   try {
-    const user = await prisma.user.create({
+    const user = await prisma.User.create({
       data: {
         username,
-        email,
         password,
+        email,
       },
     });
     return user;
   } catch (error) {
     console.error('Error creating user:', error);
     throw error;
-  } finally {
-    await prisma.$disconnect();
   }
 }
 
-async function getUserById(userId) {
-  try {
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-    });
-    return user;
-  } catch (error) {
-    console.error('Error getting user by ID:', error);
-    throw error;
-  } finally {
-    await prisma.$disconnect();
-  }
+async function getUserByUsername(username) {
+    return prisma.User.findUnique({ where: { username }, })
 }
-
 
 module.exports = {
   createUser,
-  getUserById,
+  getUserByUsername,
 };
