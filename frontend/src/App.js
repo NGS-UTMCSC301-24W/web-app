@@ -5,7 +5,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import Home from './components/Home';
 import Login from './components/Login';
-import Register from './components/RegisterForm';
+import Registration from './components/Registration';
 import Filter from "./components/Filter";
 import CreateListingPage from './components/CreateListingPage';
 
@@ -22,7 +22,7 @@ const App = () => {
               <Link to="/login">Login</Link>
             </li>
             <li>
-              <Link to="/register">Register</Link>
+              <Link to="/Registration">Registration</Link>
             </li>
             <li>
               <Link to="/filter">Filter</Link>
@@ -37,7 +37,7 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
+          <Route path="/Registration" component={Registration} />
           <Route path="/filter" component={Filter}/>
           <Route path="/create-listing" component={CreateListingPage}/>
         </Switch>
