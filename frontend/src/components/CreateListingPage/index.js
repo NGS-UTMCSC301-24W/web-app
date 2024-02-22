@@ -4,6 +4,7 @@ import CoordinatePicker from './CoordinatePicker';
 import FormField from './FormField';
 import UploadManager from './UploadManager';
 import SelectField from './SelectField';
+import Layout from "../../layout";
 
 const CreateListingPage = () => {
   const [formData, setFormData] = useState({
@@ -45,7 +46,8 @@ const CreateListingPage = () => {
   };
 
   return (
-    <div>
+    <Layout>
+      <div>
       <h2>Create Listing</h2>
       <FormField
         label="Title: "
@@ -120,6 +122,8 @@ const CreateListingPage = () => {
       <CoordinatePicker onChange={handleChange} />
       <button onClick={createListing}>Create Listing!</button>
     </div>
+    </Layout>
+    
   );
 };
 
