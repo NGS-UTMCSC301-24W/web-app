@@ -4,9 +4,11 @@ import Footer from './Footer';
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Nav />
-      {children}
+      <div style={{ flex: 1, padding: '0', margin: '0' }}>
+        {children}
+      </div>
       <Footer />
     </div>
   );

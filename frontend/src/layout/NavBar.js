@@ -1,60 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 
 const Brand = () => (
-  <a className="navbar-brand p-4" href="javascript:void(0)">
+  <Link className="navbar-brand p-4" to="/">
     Uhome
-  </a>
+  </Link>
 );
 
 const SearchForm = () => (
-  <form className="d-flex align-items-center">
-    <input className="form-control me-2" type="text" placeholder="Search" />
+  <form className="d-flex align-items-center" style={{ margin: '0' }}>
+    <input className="form-control me-2" type="text" 
+      placeholder="Search" style={{ margin: '0', marginRight: '10px'}} />
     <button className="btn btn-primary" type="button">
       Search
     </button>
   </form>
 );
 
-const ToggleButton = () => (
-  <button
-    className="navbar-toggler"
-    type="button"
-    data-bs-toggle="collapse"
-    data-bs-target="#mynavbar"
-  >
-    <span className="navbar-toggler-icon"></span>
-  </button>
-);
+const DropdownSelect = () => {
+  const history = useHistory();
+  const [selectedOption, setSelectedOption] = useState('/');
 
-const NavigationLinks = () => (
-  <ul className="navbar-nav me-5">
-    <NavItem label="My Account" />
-    <NavItem label="Ask" />
-    <NavItem label="Rental Information" />
-    <NavItem label="Favourites" />
-    <NavItem label="UTM" />
-  </ul>
-);
+  const handleChange = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedOption(selectedValue);
+    history.push(selectedValue); // Navigate to the selected page
+  };
 
-const NavItem = ({ label }) => (
-  <li className="nav-item m-2">
-    <a className="nav-link" href="javascript:void(0)">
-      <button className="btn btn-primary mt-2">{label}</button>
-    </a>
-  </li>
-);
+  return (
+    <select
+      className="form-select"
+      style={{ width: '150px' }}
+      value={selectedOption}
+      onChange={handleChange}
+    >
+      <option value="/">Home</option>
+      <option value="/login">Login</option>
+      <option value="/registration">Registration</option> {/* Corrected typo */}
+      <option value="/listing">Filter</option>
+      <option value="/listings">Listings</option>
+      <option value="/create-listing">Create Listing</option>
+      <option value="/list/65bfafc116524254cd07f34b">Example Listing Details</option>
+    </select>
+  );
+};
 
-const Nav = () => (
+
+const NavBar = () => (
   <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div className="container-fluid">
+    <div className="container-fluid" >
       <Brand />
       <SearchForm />
-      <ToggleButton />
-      <div className="collapse navbar-collapse justify-content-end" id="mynavbar">
-        <NavigationLinks />
-      </div>
+      <DropdownSelect />
     </div>
   </nav>
 );
 
-export default Nav;
+export default NavBar;

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Step1 from './Step1';
 import Step2 from './Step2';
-import Layout from '../../layout';
 
 const Registration = () => {
   const history = useHistory();
@@ -69,8 +68,7 @@ const Registration = () => {
 
   return (
     <div className="container register">
-      <Layout>
-        {step === 1 && (
+      {step === 1 && (
         <Step1
           basicInfo={basicInfo}
           setBasicInfo={setBasicInfo}
@@ -88,8 +86,6 @@ const Registration = () => {
           handleDetailsSubmit={handleDetailsSubmit}
         />
       )}
-      </Layout>
-      
     </div>
   );
 };
