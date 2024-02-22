@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import constants from "../../constants.json";
+import Layout from "../../layout"
 
 const Filter = () => {
   const [listings, setListings] = useState([]);
@@ -62,7 +63,8 @@ const Filter = () => {
   };
 
   return (
-      <div>
+    <Layout>
+       <div>
         <h2>Listings</h2>
         <div>
           <label>Price Range:</label>
@@ -153,6 +155,8 @@ const Filter = () => {
           ))}
         </ul>
       </div>
+    </Layout>
+     
   );
 };
 
