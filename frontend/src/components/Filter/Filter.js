@@ -86,7 +86,7 @@ const Filter = () => {
           <option value="">
             Any
           </option>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100].map((value) => (
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100].map((value) => (
               <option key={value} value={value}>
                 {value}
               </option>
@@ -105,7 +105,7 @@ const Filter = () => {
           <option value="">
             Any
           </option>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
               <option key={value} value={value}>
                 {value}
               </option>
