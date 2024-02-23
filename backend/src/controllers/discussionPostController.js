@@ -17,8 +17,8 @@ async function upsertDiscussionPost(req, res) {
     return res.status(400).json(validation.error.details.map(detail => detail.message).join(", "));
   }
 
-  const listingService = new DiscussionPostService(req.app.locals.prisma);
-  const result = await listingService.upsertPost({
+  const service = new DiscussionPostService(req.app.locals.prisma);
+  const result = await service.upsertPost({
     ...validation.value,
     authorType: "OWNER", // TODO: Change after user role feat is implemented
     authorId: req.session.user.id,
