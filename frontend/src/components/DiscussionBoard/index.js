@@ -6,6 +6,7 @@ const DiscussionBoard = () => {
   const [page, setPage] = useState(0);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [lastPage, setLastPage] = useState(false);
 
   const fetchPosts = async () => {
     setLoading(true);
@@ -14,6 +15,9 @@ const DiscussionBoard = () => {
       { credentials: "include" }
     );
     const data = await response.json();
+    if (data.length === 0 || data.length < 10) {
+      setLastPage(true);
+    }
     setPosts([...posts, ...data]);
     setLoading(false);
   };
@@ -49,12 +53,15 @@ const DiscussionBoard = () => {
           </Link>
         ))}
       </ul>
-      <button
-        className="btn btn-primary"
-        onClick={() => setPage(page + 1)}
-      >
-        Load More
-      </button>
+      {lastPage && <p>No more posts to load!</p>}
+      {!lastPage && (
+        <button
+          className="btn btn-primary"
+          onClick={() => setPage(page + 1)}
+        >
+          Load More
+        </button>
+      )}
     </div>
   );
 };
