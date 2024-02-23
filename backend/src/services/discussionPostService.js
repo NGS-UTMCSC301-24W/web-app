@@ -20,6 +20,16 @@ class DiscussionPostService {
       });
   }
 
+  async getPost(data) {
+    return this.prisma.discussionPost.findUnique({
+      where: data,
+    })
+      .catch(e => {
+        console.error(e);
+        return false;
+      });
+  }
+
   async getPosts({ parentId = null, page = 0, type }) {
     const posts = await this.prisma.discussionPost.findMany({
       where: {

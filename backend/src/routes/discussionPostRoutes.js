@@ -1,5 +1,8 @@
 const express = require('express');
-const { upsertDiscussionPost, getDiscussionPosts, deleteDiscussionPost } = require('../controllers/discussionPostController');
+const {
+  upsertDiscussionPost, getDiscussionPosts,
+  deleteDiscussionPost, getDiscussionPost
+} = require('../controllers/discussionPostController');
 
 const router = express.Router();
 
@@ -13,7 +16,8 @@ router.use((req, res, next) => {
 
 // Define routes
 router.post('/', upsertDiscussionPost);
-router.get('/', getDiscussionPosts);
+router.get('/', getDiscussionPost);
+router.get('/query', getDiscussionPosts);
 router.delete('/', deleteDiscussionPost);
 
 module.exports = router;

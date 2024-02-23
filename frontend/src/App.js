@@ -10,6 +10,8 @@ import Filter from "./components/Filter/Filter";
 import Listings from './components/Listings';
 import CreateListingPage from './components/CreateListingPage';
 import DiscussionBoard from './components/DiscussionBoard';
+import UpsertPost from './components/DiscussionBoard/UpsertPost.js';
+import Post from './components/DiscussionBoard/PostDetails.js';
 import Details from './components/Details';
 import Layout from './layout';
 
@@ -29,7 +31,10 @@ const App = () => {
             <Route path="/listing" component={Filter}/>
             <Route path="/listings" component={Listings} />
             <Route path="/create-listing" component={CreateListingPage}/>
-            <Route path="/discussion-board" component={DiscussionBoard}/>
+            <Route path="/discussion-board" exact component={DiscussionBoard}/>
+            <Route path="/discussion-board/new" exact component={UpsertPost}/>
+            <Route path="/discussion-board/edit/:id" exact component={UpsertPost}/>
+            <Route path="/discussion-board/:id" exact component={Post}/>
             <Route path="/list/:id" component={Details}/>
           </Switch>
         </Layout>

@@ -10,7 +10,7 @@ const DiscussionBoard = () => {
   const fetchPosts = async () => {
     setLoading(true);
     const response = await fetch(
-      `${constants.API_BASE_URL}/discussion-board?page=${page}`,
+      `${constants.API_BASE_URL}/discussion-board/query?page=${page}`,
       { credentials: "include" }
     );
     const data = await response.json();
@@ -41,12 +41,12 @@ const DiscussionBoard = () => {
       </Link>
       <ul className="list-group mb-2">
         {posts.map((post) => (
-          <li className="list-group-item" key={post.id}>
+          <Link to={`/discussion-board/${post.id}`} className="list-group-item" key={post.id}>
             <div className="me-auto">
               <div className="fw-bold" style={truncateStyle}>{post.title}</div>
               <div style={truncateStyle}>{post.content}</div>
             </div>
-          </li>
+          </Link>
         ))}
       </ul>
       <button

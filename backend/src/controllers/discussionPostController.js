@@ -10,7 +10,7 @@ async function upsertDiscussionPost(req, res) {
     authorType: Joi.string().allow("OWNER", "RENTER").required(),
     authorId: Joi.string().required(),
   }).validate({
-    ...validation.value,
+    ...req.body,
     authorType: "OWNER", // TODO: Change after user role feat is implemented
     authorId: req.session.user.id,
   }, { abortEarly: false });
@@ -27,6 +27,29 @@ async function upsertDiscussionPost(req, res) {
   }
 
   return res.status(201).json(result);
+}
+
+async function getDiscussionPost(req, res) {
+  const validation = Joi.object({
+    id: Joi.string().required(),
+    authorType: Joi.string().allow("OWNER", "RENTER").required(),
+  }).validate({
+    id: req.query.id,
+    authorType: "OWNER", // TODO: Change after user role feat is implemented
+  }, { abortEarly: false });
+
+  if (validation.error) {
+    return res.status(400).json(validation.error.details.map(detail => detail.message).join(", "));
+  }
+
+  const service = new DiscussionPostService(req.app.locals.prisma);
+  const result = await service.getPost(validation.value);
+
+  if (!result) {
+    return res.status(400).json(`Unable to get discussion post.`);
+  }
+
+  return res.status(200).json(result);
 }
 
 async function getDiscussionPosts(req, res) {
@@ -65,6 +88,7 @@ async function deleteDiscussionPost(req, res) {
 
 module.exports = {
   upsertDiscussionPost,
+  getDiscussionPost,
   getDiscussionPosts,
   deleteDiscussionPost,
 }
