@@ -9,6 +9,7 @@ import Registration from './components/Registration';
 import Filter from "./components/Filter/Filter";
 import Listings from './components/Listings';
 import CreateListingPage from './components/CreateListingPage';
+import DiscussionBoard from './components/DiscussionBoard';
 import Details from './components/Details';
 import Layout from './layout';
 
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/listing" component={Filter}/>
             <Route path="/listings" component={Listings} />
             <Route path="/create-listing" component={CreateListingPage}/>
+            <Route path="/discussion-board" component={DiscussionBoard}/>
             <Route path="/list/:id" component={Details}/>
           </Switch>
         </Layout>

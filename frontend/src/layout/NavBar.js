@@ -41,6 +41,7 @@ const DropdownSelect = () => {
       <option value="/listings">Listings</option>
       <option value="/create-listing">Create Listing</option>
       <option value="/list/65bfafc116524254cd07f34b">Example Listing Details</option>
+      <option value="/discussion-board">Discussion Board</option>
     </select>
   );
 };
