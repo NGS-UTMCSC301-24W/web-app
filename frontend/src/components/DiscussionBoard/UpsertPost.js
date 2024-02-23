@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import constants from "../../constants.json";
 
-const NewPost = (router) => {
+const UpsertPost = (router) => {
   const id = router.match.params.id;
   const [post, setPost] = useState({
     title: "",
@@ -33,8 +33,14 @@ const NewPost = (router) => {
       }),
       credentials: "include",
     });
+    const data = await response.json();
+
     if (response.ok) {
-      alert("Post upserted successfully!");
+      if (data.parentId) {
+        router.history.push(`/discussion-board/${data.parentId}`);
+      } else {
+        router.history.push(`/discussion-board/${data.id}`);
+      }
     } else {
       alert("Failed to upsert post!");
     }
@@ -51,16 +57,18 @@ const NewPost = (router) => {
       <h1 className="h1">
         {id ? "Edit Post" : "New Post"}
       </h1>
-      <div className="mb-3">
-        <label className="form-label">Title</label>
-        <input
-          value={post.title}
-          onChange={(e) => setPost({ ...post, title: e.target.value })}
-          type="text"
-          className="form-control"
-          placeholder="Title"
-        />
-      </div>
+      {!post.parentId && (
+        <div className="mb-3">
+          <label className="form-label">Title</label>
+          <input
+            value={post.title}
+            onChange={(e) => setPost({ ...post, title: e.target.value })}
+            type="text"
+            className="form-control"
+            placeholder="Title"
+          />
+        </div>
+      )}
       <div className="mb-3">
         <label className="form-label">Content</label>
         <textarea
@@ -75,4 +83,4 @@ const NewPost = (router) => {
     </div>
   );
 };
-export default NewPost;
+export default UpsertPost;

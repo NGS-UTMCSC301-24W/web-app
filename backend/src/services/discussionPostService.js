@@ -23,6 +23,13 @@ class DiscussionPostService {
   async getPost(data) {
     return this.prisma.discussionPost.findUnique({
       where: data,
+      include: {
+        author: {
+          select: {
+            username: true,
+          }
+        },
+      }
     })
       .catch(e => {
         console.error(e);
@@ -38,6 +45,13 @@ class DiscussionPostService {
       },
       skip: page * 10,
       take: 10,
+      include: {
+        author: {
+          select: {
+            username: true,
+          }
+        },
+      }
     });
 
     return posts;

@@ -43,7 +43,10 @@ async function getDiscussionPost(req, res) {
   }
 
   const service = new DiscussionPostService(req.app.locals.prisma);
-  const result = await service.getPost(validation.value);
+  const result = await service.getPost(validation.value).then(post => ({
+    ...post,
+    editable: post.authorId === req.session.user.id,
+  }));
 
   if (!result) {
     return res.status(400).json(`Unable to get discussion post.`);
@@ -58,7 +61,10 @@ async function getDiscussionPosts(req, res) {
     parentId: req.query.parentId,
     page: req.query.page,
     type: "OWNER", // TODO: Change after user role feat is implemented
-  });
+  }).then(posts => posts.map(post => ({
+    ...post,
+    editable: post.authorId === req.session.user.id,
+  })));
 
   return res.status(200).json(result);
 }

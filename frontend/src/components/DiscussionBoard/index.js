@@ -44,7 +44,7 @@ const DiscussionBoard = () => {
           <Link to={`/discussion-board/${post.id}`} className="list-group-item" key={post.id}>
             <div className="me-auto">
               <div className="fw-bold" style={truncateStyle}>{post.title}</div>
-              <div style={truncateStyle}>{post.content}</div>
+              <div style={truncateStyle}>{post.author.username}: {post.content}</div>
             </div>
           </Link>
         ))}
