@@ -44,8 +44,26 @@ type RoomCount {
 }
 
 model User {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  username    String   @unique
-  password    String   // Assuming password is a string, update the type accordingly
-  email       String   @unique
+  id              String           @id @default(auto()) @map("_id") @db.ObjectId
+  username        String           @unique
+  password        String // Assuming password is a string, update the type accordingly
+  email           String           @unique
+  discussionPosts DiscussionPost[]
+}
+
+model DiscussionPost {
+  id         String           @id @default(auto()) @map("_id") @db.ObjectId
+  title      String
+  content    String
+  authorType AuthorType
+  author     User             @relation(fields: [authorId], references: [id])
+  authorId   String           @db.ObjectId
+  parent     DiscussionPost?  @relation("MainPost", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  parentId   String?          @db.ObjectId
+  comments   DiscussionPost[] @relation("MainPost")
+}
+
+enum AuthorType {
+  OWNER
+  RENTER
 }
