@@ -4,12 +4,15 @@ class DiscussionPostService {
   }
 
   async upsertPost(data) {
+    const { id, ...rest } = data;
+
     return this.prisma.discussionPost.upsert({
-      where: { id: data.id ?? "000000000000000000000000" },
-      update: Object.entries(data)
-        .filter(([key]) => key !== "id")
-        .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {}),
-      create: data,
+      where: {
+        id: id ?? "000000000000000000000000",
+        authorId: data.authorId,
+      },
+      update: rest,
+      create: rest,
     })
       .catch(e => {
         console.error(e);
