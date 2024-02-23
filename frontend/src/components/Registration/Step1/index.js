@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 
-const Step1 = ({ handleCheckboxChange, selectedOption, basicInfo, setBasicInfo, formSubmitted, handleBasicInfoSubmit, passwordMatch, handleConfirmPasswordChange }) => {
+const Step1 = ({ basicInfo, setBasicInfo, formSubmitted, handleBasicInfoSubmit, passwordMatch, handleConfirmPasswordChange }) => {
   return (
     <>
       <h2 style={{marginTop: '2rem', marginBottom: '2rem' }}>Step 1: Basic Information</h2>
@@ -59,35 +59,41 @@ const Step1 = ({ handleCheckboxChange, selectedOption, basicInfo, setBasicInfo, 
           </div>
   
           <div className="row mt-4">
-            <div className="col-md-6">
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="userCheckbox"
-                  checked={selectedOption === 'user'}
-                  onChange={() => handleCheckboxChange('user')}
-                />
-                <label className="form-check-label" htmlFor="userCheckbox">
-                  User
-                </label>
-              </div>
+          <div className="row">
+          <div className="col-md-6">
+            <div className="form-check">
+              <input
+                type="radio"
+                className="form-check-input"
+                id="userCheckbox"
+                name="role"
+                value="user"
+                checked={basicInfo.role === 'user'}
+                onChange={() => setBasicInfo({ ...basicInfo, role: 'user' })}
+              />
+              <label className="form-check-label" htmlFor="userCheckbox">
+                User
+              </label>
             </div>
-            <div className="col-md-6">
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="landlordCheckbox"
-                  checked={selectedOption === 'landlord'}
-                  onChange={() => handleCheckboxChange('landlord')}
-                />
-                <label className="form-check-label" htmlFor="landlordCheckbox">
-                  Landlord
-                </label>
-              </div>
+          </div>
+          <div className="col-md-6">
+            <div className="form-check">
+              <input
+                type="radio"
+                className="form-check-input"
+                id="landlordCheckbox"
+                name="role"
+                value="landlord"
+                checked={basicInfo.role === 'landlord'}
+                onChange={() => setBasicInfo({ ...basicInfo, role: 'landlord' })}
+              />
+              <label className="form-check-label" htmlFor="landlordCheckbox">
+                Landlord
+              </label>
             </div>
-            {formSubmitted && !selectedOption && <div className="text-danger">Please select your role.</div>}
+          </div>
+    </div>
+            {formSubmitted && basicInfo.role.trim() === '' && <div className="text-danger">Please select your role.</div>}
           </div>
         </div>
   

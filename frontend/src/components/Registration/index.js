@@ -10,25 +10,34 @@ import Step2 from './Step2';
 const Registration = () => {
   const history = useHistory();
   const [step, setStep] = useState(1);
-  const [basicInfo, setBasicInfo] = useState({ username: '', fullName: '', password: '', confirmPassword: '' });
+  const [basicInfo, setBasicInfo] = useState({ username: '', fullName: '', password: '', confirmPassword: '', role: '' });
   const [details, setDetails] = useState({
     email: '',
     phoneNumber: '',
     birthday: '',
     gender: '', 
     schoolProgram: '',
-    yearOfStudy: 0, 
+    yearOfStudy: '', 
   });  
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [finalSubmitted, setFinalSubmitted] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
 
 
-  const handleCheckboxChange = (value) => {
-    setSelectedOption(value);
-    setBasicInfo({ ...basicInfo, selectedOption });
+  const validPhoneNumber = (value) => !isNaN(Number(value)) && value.trim().length === 10;
+
+  const validAge = (birthdate) => {
+    const today = new Date();
+    const birthdateDate = new Date(birthdate);
+    const age = today.getFullYear() - birthdateDate.getFullYear();
+  
+    const isBirthdayPassed =
+      today.getMonth() > birthdateDate.getMonth() ||
+      (today.getMonth() === birthdateDate.getMonth() && today.getDate() >= birthdateDate.getDate());
+  
+    return isBirthdayPassed ? age >= 13 : age - 1 >= 13;
   };
+
 
   const handleBasicInfoSubmit = (e) => {
     e.preventDefault();
@@ -41,12 +50,12 @@ const Registration = () => {
       basicInfo.fullName.trim() === '' ||
       basicInfo.password.trim() === '' ||
       basicInfo.confirmPassword.trim() === '' ||
-      !selectedOption
+      basicInfo.role.trim() === ''
     ) {
       // If any field is empty, display a message and do not proceed to the next step
       return;
     }
-
+    console.log(basicInfo)
     setStep(2);
   };
 
@@ -61,7 +70,7 @@ const Registration = () => {
         details.birthday.trim() === '' ||
         details.gender.trim() === '' ||
         details.schoolProgram.trim() === '' ||
-        details.yearOfStudy === 0
+        details.yearOfStudy === ''
       ) {
         // If any field is empty, display a message and do not proceed to the next step
         return;
@@ -105,8 +114,6 @@ const Registration = () => {
     <div className="container register">
       {step === 1 && (
         <Step1
-          handleCheckboxChange={handleCheckboxChange}
-          selectedOption={selectedOption}
           basicInfo={basicInfo}
           setBasicInfo={setBasicInfo}
           formSubmitted={formSubmitted}
@@ -118,6 +125,8 @@ const Registration = () => {
 
       {step === 2 && (
         <Step2
+          validAge={validAge}
+          validPhoneNumber={validPhoneNumber}
           finalSubmitted={finalSubmitted}
           details={details}
           setDetails={setDetails}

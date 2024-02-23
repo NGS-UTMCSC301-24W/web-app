@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 
-const Step2 = ({ finalSubmitted, details, setDetails, handleDetailsSubmit }) => {
+const Step2 = ({ validAge, validPhoneNumber, finalSubmitted, details, setDetails, handleDetailsSubmit }) => {
   return (
     <div className="step-container">
       <h2 style={{marginTop: '2rem', marginBottom: '2rem' }}>Step 2: Additional Details</h2>
@@ -26,6 +26,8 @@ const Step2 = ({ finalSubmitted, details, setDetails, handleDetailsSubmit }) => 
             className="form-control"
           />
           {finalSubmitted && details.phoneNumber.trim() === '' && <div className="text-danger">Please fill in your phone number.</div>}
+          {finalSubmitted && details.phoneNumber.trim() !== '' && !validPhoneNumber(details.phoneNumber) && 
+            ( <div className="text-danger">Please enter a valid phone number.</div>)}
         </div>
 
         <div className="form-group">
@@ -37,6 +39,8 @@ const Step2 = ({ finalSubmitted, details, setDetails, handleDetailsSubmit }) => 
             className="form-control"
           />
           {finalSubmitted && details.birthday.trim() === '' && <div className="text-danger">Please fill in your birthday.</div>}
+          {finalSubmitted && details.birthday.trim() !== '' && !validAge(details.birthday) &&
+            <div className="text-danger">User must be greater than 13 years old.</div>}
         </div>
 
         <div className="form-group">
@@ -78,7 +82,7 @@ const Step2 = ({ finalSubmitted, details, setDetails, handleDetailsSubmit }) => 
             min="1"
             max="7"
           />
-          {finalSubmitted && details.yearOfStudy === 0 && <div className="text-danger">Please select your year of study.</div>}
+          {finalSubmitted && details.yearOfStudy === '' && <div className="text-danger">Please select your year of study.</div>}
         </div>
 
         <button type="submit" className="btn btn-primary" style={{ marginTop: "1rem" }}>
