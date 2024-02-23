@@ -1,9 +1,10 @@
 import React from 'react';
+import './index.css';
 
 const Step1 = ({ handleCheckboxChange, selectedOption, basicInfo, setBasicInfo, formSubmitted, handleBasicInfoSubmit, passwordMatch, handleConfirmPasswordChange }) => {
   return (
     <>
-      <h2 style={{marginTop: '2rem' }}>Step 1: Basic Information</h2>
+      <h2 style={{marginTop: '2rem', marginBottom: '2rem' }}>Step 1: Basic Information</h2>
       <form onSubmit={handleBasicInfoSubmit}>
         <div className="container">
           <div className="row">

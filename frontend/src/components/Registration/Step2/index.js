@@ -1,9 +1,10 @@
 import React from 'react';
+import './index.css';
 
 const Step2 = ({ finalSubmitted, details, setDetails, handleDetailsSubmit }) => {
   return (
     <div className="step-container">
-      <h2 style={{marginTop: '2rem' }}>Step 2: Additional Details</h2>
+      <h2 style={{marginTop: '2rem', marginBottom: '2rem' }}>Step 2: Additional Details</h2>
       <form onSubmit={handleDetailsSubmit} className="form">
         <div className="form-group">
           <label>Email:</label>
