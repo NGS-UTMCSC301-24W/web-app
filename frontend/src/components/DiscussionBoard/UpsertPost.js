@@ -46,6 +46,26 @@ const UpsertPost = (router) => {
     }
   };
 
+  const addImage = async () => {
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.onchange = upload;
+    input.click();
+  }
+
+  const upload = async (e) => {
+    const uploadURL = await fetch(`${constants.API_BASE_URL}/listings/upload-image-url`).then(r => r.json());
+
+    const file = e.target.files[0];
+    await fetch(uploadURL, {
+      method: "PUT",
+      body: file
+    });
+
+    const url = uploadURL.split("?")[0];
+    setPost({ ...post, content: post.content + ` ![Image](${url})` });
+  }
+
   useEffect(() => {
     if (id) {
       fetchPost();
@@ -79,7 +99,10 @@ const UpsertPost = (router) => {
           placeholder="Content"
         />
       </div>
-      <button className="btn btn-primary" onClick={onSubmit}>Submit</button>
+      <div className="btn-group">
+        <button className="btn btn-primary" onClick={addImage}>Add Image</button>
+        <button className="btn btn-primary" onClick={onSubmit}>Submit</button>
+      </div>
     </div>
   );
 };

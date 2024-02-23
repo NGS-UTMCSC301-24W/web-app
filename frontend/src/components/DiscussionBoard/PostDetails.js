@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import constants from "../../constants.json";
 import { Link, useHistory } from "react-router-dom";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const Post = (router) => {
   const id = router.match.params.id;
@@ -113,7 +115,8 @@ const Comment = ({ id, author, content, editable, onCommentDelete }) => {
     <div className="card w-100" style={{ width: "18rem" }}>
       <div className="card-body">
         <p className="card-text">
-          <b>{author}:</b> {content}
+          <b>{author}:</b>
+          <Markdown remarkPlugins={[remarkGfm]}>{content}</Markdown>
         </p>
         {editable && (
           <div className="btn-group">
@@ -149,10 +152,31 @@ const Reply = ({ parentId, onSuccess }) => {
       onSuccess({
         ...data,
         author: { username: "You" },
+        editable: true,
       });
     } else {
       alert("Failed to reply!");
     }
+  }
+
+  const addImage = async () => {
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.onchange = upload;
+    input.click();
+  }
+
+  const upload = async (e) => {
+    const uploadURL = await fetch(`${constants.API_BASE_URL}/listings/upload-image-url`).then(r => r.json());
+
+    const file = e.target.files[0];
+    await fetch(uploadURL, {
+      method: "PUT",
+      body: file
+    });
+
+    const url = uploadURL.split("?")[0];
+    setContent(content + ` ![Image](${url})`);
   }
 
   return (
@@ -167,7 +191,10 @@ const Reply = ({ parentId, onSuccess }) => {
           placeholder="Content"
         />
       </div>
-      <button className="btn btn-primary" onClick={reply}>Submit</button>
+      <div className="btn-group">
+        <button className="btn btn-primary" onClick={addImage}>Add Image</button>
+        <button className="btn btn-primary" onClick={reply}>Reply</button>
+      </div>
     </div>
   );
 };
