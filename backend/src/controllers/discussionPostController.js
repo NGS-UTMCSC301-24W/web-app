@@ -2,27 +2,25 @@ const Joi = require('joi');
 const { DiscussionPostService } = require('../services/discussionPostService');
 
 async function upsertDiscussionPost(req, res) {
-  if (!req.session.user) {
-    return res.status(401).json("Unauthorized");
-  }
-
   const validation = Joi.object({
     id: Joi.string().optional(),
-    title: Joi.string().min(3).max(200).required(),
+    title: Joi.string().max(200).allow("").required(),
     content: Joi.string().required(),
     parentId: Joi.string().optional(),
-  }).validate(req.body, { abortEarly: false });
+    authorType: Joi.string().allow("OWNER", "RENTER").required(),
+    authorId: Joi.string().required(),
+  }).validate({
+    ...validation.value,
+    authorType: "OWNER", // TODO: Change after user role feat is implemented
+    authorId: req.session.user.id,
+  }, { abortEarly: false });
 
   if (validation.error) {
     return res.status(400).json(validation.error.details.map(detail => detail.message).join(", "));
   }
 
   const service = new DiscussionPostService(req.app.locals.prisma);
-  const result = await service.upsertPost({
-    ...validation.value,
-    authorType: "OWNER", // TODO: Change after user role feat is implemented
-    authorId: req.session.user.id,
-  });
+  const result = await service.upsertPost(validation.value);
 
   if (!result) {
     return res.status(400).json(`Unable to upsert discussion post.`);
@@ -31,6 +29,42 @@ async function upsertDiscussionPost(req, res) {
   return res.status(201).json(result);
 }
 
+async function getDiscussionPosts(req, res) {
+  const service = new DiscussionPostService(req.app.locals.prisma);
+  const result = await service.getPosts({
+    parentId: req.query.parentId,
+    page: req.query.page,
+    type: "OWNER", // TODO: Change after user role feat is implemented
+  });
+
+  return res.status(200).json(result);
+}
+
+async function deleteDiscussionPost(req, res) {
+  const validation = Joi.object({
+    id: Joi.string().required(),
+    authorId: Joi.string().required(),
+  }).validate({
+    ...req.body,
+    authorId: req.session.user.id,
+  }, { abortEarly: false });
+
+  if (validation.error) {
+    return res.status(400).json(validation.error.details.map(detail => detail.message).join(", "));
+  }
+
+  const service = new DiscussionPostService(req.app.locals.prisma);
+  const result = await service.deletePost(validation.value);
+
+  if (!result) {
+    return res.status(400).json(`Unable to delete discussion post.`);
+  }
+
+  return res.status(200).json(result);
+}
+
 module.exports = {
   upsertDiscussionPost,
+  getDiscussionPosts,
+  deleteDiscussionPost,
 }
