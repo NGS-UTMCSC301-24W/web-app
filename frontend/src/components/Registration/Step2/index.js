@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 
-const Step2 = ({ validAge, validPhoneNumber, finalSubmitted, details, setDetails, handleDetailsSubmit }) => {
+const Step2 = ({ validAge, validPhoneNumber, finalSubmitted, details, setDetails, handleDetailsSubmit, uniqueEmail }) => {
   return (
     <div className="step-container">
       <h2 style={{marginTop: '2rem', marginBottom: '2rem' }}>Step 2: Additional Details</h2>
@@ -15,6 +15,8 @@ const Step2 = ({ validAge, validPhoneNumber, finalSubmitted, details, setDetails
             className="form-control"
           />
           {finalSubmitted && details.email.trim() === '' && <div className="text-danger">Please fill in your email.</div>}
+          {finalSubmitted && details.email.trim() !== '' && !uniqueEmail
+                 && <div className="text-danger">Email is already taken.</div>}
         </div>
 
         <div className="form-group">

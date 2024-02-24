@@ -42,7 +42,13 @@ async function getUserByUsername(username) {
     return prisma.User.findUnique({ where: { username }, })
 }
 
+async function getUserByEmail(email) {
+  return prisma.User.findUnique({ where: { email } });
+}
+
+
 module.exports = {
   createUser,
   getUserByUsername,
+  getUserByEmail,
 };

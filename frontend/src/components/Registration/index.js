@@ -23,6 +23,8 @@ const Registration = () => {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [finalSubmitted, setFinalSubmitted] = useState(false);
+  const [uniqueUser, setUniqueUser] = useState(true);
+  const [uniqueEmail, setUniqueEmail] = useState(true);
 
 
   const validPhoneNumber = (value) => !isNaN(Number(value)) && value.trim().length === 10;
@@ -95,8 +97,20 @@ const Registration = () => {
         console.log('User registered successfully');
         history.push('/');
       } else {
+        const errorData = await response.json();
         console.error('Failed to register user');
         console.error('Status Code:', response.status);
+  
+        if (errorData && (errorData.error === 'Email is already taken.' || errorData.error === 'Username is already taken.' )) {
+          if (errorData.error === 'Username is already taken.') {
+            setStep(1);
+            setUniqueUser(false);
+            setUniqueEmail(true); 
+          } else if (errorData.error === 'Email is already taken.') {
+            setUniqueEmail(false);
+            setUniqueUser(true); 
+          }
+        }
       }
     } catch (error) {
       console.error('Error:', error);
@@ -123,6 +137,7 @@ const Registration = () => {
           handleConfirmPasswordChange={handleConfirmPasswordChange}
           passwordMatch={passwordMatch}
           confirmPass={confirmPass}
+          uniqueUser={uniqueUser}
         />
       )}
 
@@ -134,6 +149,7 @@ const Registration = () => {
           details={details}
           setDetails={setDetails}
           handleDetailsSubmit={handleDetailsSubmit}
+          uniqueEmail={uniqueEmail}
         />
         
       )}

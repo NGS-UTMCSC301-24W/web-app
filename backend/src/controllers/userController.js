@@ -5,6 +5,19 @@ const registerUserController = async (req, res) => {
   const { username, fullName, password, role, email, 
     phoneNumber, birthday, gender, schoolProgram, yearOfStudy } = req.body;
 
+  // Check uniqueness before creating the user
+  const isEmailUnique = await userService.isEmailUnique(email);
+  const isUsernameUnique = await userService.isUsernameUnique(username);
+
+  if (!isEmailUnique) {
+    return res.status(400).json({ error: 'Email is already taken.' });
+  }
+
+  if (!isUsernameUnique) {
+    return res.status(400).json({ error: 'Username is already taken.' });
+  }
+
+
   try {
     const newUser = await userService.createUser({
       username,

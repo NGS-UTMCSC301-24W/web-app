@@ -38,6 +38,17 @@ function convertToISODateTime(birthdayString) {
   return isoDateTime;
 }
 
+async function isEmailUnique(email) {
+  const existingUser = await userModel.getUserByEmail(email);
+  return !existingUser; 
+}
+
+async function isUsernameUnique(username) {
+  const existingUser = await userModel.getUserByUsername(username);
+  return !existingUser; 
+}
+
+
 async function getUserByUsername(username) {
   try {
     const user = await userModel.getUserByUsername( username);
@@ -51,4 +62,6 @@ async function getUserByUsername(username) {
 module.exports = {
   createUser,
   getUserByUsername,
+  isEmailUnique,
+  isUsernameUnique,
 };
