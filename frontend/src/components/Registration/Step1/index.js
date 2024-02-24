@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 
-const Step1 = ({ basicInfo, setBasicInfo, formSubmitted, handleBasicInfoSubmit, passwordMatch, handleConfirmPasswordChange }) => {
+const Step1 = ({ basicInfo, setBasicInfo, formSubmitted, handleBasicInfoSubmit, passwordMatch, handleConfirmPasswordChange, confirmPass }) => {
   return (
     <>
       <h2 style={{marginTop: '2rem', marginBottom: '2rem' }}>Step 1: Basic Information</h2>
@@ -52,8 +52,9 @@ const Step1 = ({ basicInfo, setBasicInfo, formSubmitted, handleBasicInfoSubmit, 
                   value={basicInfo.confirmPassword}
                   onChange={handleConfirmPasswordChange}
                 />
-                {formSubmitted && basicInfo.confirmPassword.trim() === '' && <div className="text-danger">Confirm Password cannot be empty.</div>}
-                {!passwordMatch && <div className="text-danger">Password and confirm password do not match.</div>}
+                {formSubmitted && confirmPass.trim() === '' && <div className="text-danger">Confirm Password cannot be empty.</div>}
+                {!passwordMatch && confirmPass.trim() !== '' && 
+                  <div className="text-danger">Password and confirm password do not match.</div>}
               </div>
             </div>
           </div>

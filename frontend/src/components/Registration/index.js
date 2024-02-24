@@ -10,7 +10,7 @@ import Step2 from './Step2';
 const Registration = () => {
   const history = useHistory();
   const [step, setStep] = useState(1);
-  const [basicInfo, setBasicInfo] = useState({ username: '', fullName: '', password: '', confirmPassword: '', role: '' });
+  const [basicInfo, setBasicInfo] = useState({ username: '', fullName: '', password: '', role: '' });
   const [details, setDetails] = useState({
     email: '',
     phoneNumber: '',
@@ -19,6 +19,7 @@ const Registration = () => {
     schoolProgram: '',
     yearOfStudy: '', 
   });  
+  const [confirmPass, setConfirmPass] = useState('');
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [finalSubmitted, setFinalSubmitted] = useState(false);
@@ -49,14 +50,15 @@ const Registration = () => {
       basicInfo.username.trim() === '' ||
       basicInfo.fullName.trim() === '' ||
       basicInfo.password.trim() === '' ||
-      basicInfo.confirmPassword.trim() === '' ||
       basicInfo.role.trim() === ''
     ) {
       // If any field is empty, display a message and do not proceed to the next step
       return;
+    } else {
+      console.log(basicInfo)
+      setStep(2);
     }
-    console.log(basicInfo)
-    setStep(2);
+    
   };
 
   const handleDetailsSubmit = async (e) => {
@@ -77,7 +79,7 @@ const Registration = () => {
       }
 
     const userData = { ...basicInfo, ...details };
-    console.log(userData);
+    console.log("These are the user's data that will send to the backend", userData);
 
     try {
       // Send POST request to backend
@@ -104,7 +106,7 @@ const Registration = () => {
 
   const handleConfirmPasswordChange = (e) => {
     const confirmPassword = e.target.value;
-    setBasicInfo({ ...basicInfo, confirmPassword });
+    setConfirmPass(confirmPassword)
 
     // Check if password and confirm password match
     setPasswordMatch(basicInfo.password === confirmPassword);
@@ -120,6 +122,7 @@ const Registration = () => {
           handleBasicInfoSubmit={handleBasicInfoSubmit}
           handleConfirmPasswordChange={handleConfirmPasswordChange}
           passwordMatch={passwordMatch}
+          confirmPass={confirmPass}
         />
       )}
 

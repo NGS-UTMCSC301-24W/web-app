@@ -48,11 +48,10 @@ model User {
   username        String   @unique
   fullName        String
   password        String
-  confirmPassword String
   role            String
   email           String   @unique
   phoneNumber     String
-  birthday        String
+  birthday        DateTime
   gender          String
   schoolProgram   String
   yearOfStudy     Int
