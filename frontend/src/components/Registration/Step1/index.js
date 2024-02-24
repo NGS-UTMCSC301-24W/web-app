@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 
 const Step1 = ({ basicInfo, setBasicInfo, formSubmitted, handleBasicInfoSubmit, passwordMatch, 
-  handleConfirmPasswordChange, confirmPass, uniqueUser }) => {
+  handleConfirmPasswordChange, confirmPass, uniqueUser, passwordLengthError, handlePasswordChange }) => {
   return (
     <>
       <h2 style={{marginTop: '2rem', marginBottom: '2rem' }}>Step 1: Basic Information</h2>
@@ -42,9 +42,11 @@ const Step1 = ({ basicInfo, setBasicInfo, formSubmitted, handleBasicInfoSubmit, 
                   type="password"
                   className="form-control"
                   value={basicInfo.password}
-                  onChange={(e) => setBasicInfo({ ...basicInfo, password: e.target.value })}
+                  onChange={handlePasswordChange}
                 />
                 {formSubmitted && basicInfo.password.trim() === '' && <div className="text-danger">Password cannot be empty.</div>}
+                {formSubmitted && basicInfo.password.trim() !== '' && passwordLengthError
+                  && <div className="text-danger">Password must be between 6 and 20 characters.</div>}
               </div>
   
               <div className="form-group">

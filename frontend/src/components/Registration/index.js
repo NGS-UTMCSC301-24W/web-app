@@ -25,6 +25,7 @@ const Registration = () => {
   const [finalSubmitted, setFinalSubmitted] = useState(false);
   const [uniqueUser, setUniqueUser] = useState(true);
   const [uniqueEmail, setUniqueEmail] = useState(true);
+  const [passwordLengthError, setPasswordLengthError] = useState(false);
 
 
   const validPhoneNumber = (value) => !isNaN(Number(value)) && value.trim().length === 10;
@@ -55,6 +56,10 @@ const Registration = () => {
       basicInfo.role.trim() === ''
     ) {
       // If any field is empty, display a message and do not proceed to the next step
+      return;
+    }     
+    if (basicInfo.password.length < 6 || basicInfo.password.length > 20) {
+      setPasswordLengthError(true);
       return;
     } else {
       console.log(basicInfo)
@@ -117,6 +122,18 @@ const Registration = () => {
     }
   };
 
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setBasicInfo(prevState => ({ ...prevState, password: newPassword }));
+  
+    // Asynchronously ensure the comparison is made with the most current state
+    setConfirmPass(prevConfirmPass => {
+      setPasswordMatch(newPassword === prevConfirmPass);
+      return prevConfirmPass;
+    });
+  };
+  
+
 
   const handleConfirmPasswordChange = (e) => {
     const confirmPassword = e.target.value;
@@ -138,6 +155,8 @@ const Registration = () => {
           passwordMatch={passwordMatch}
           confirmPass={confirmPass}
           uniqueUser={uniqueUser}
+          passwordLengthError={passwordLengthError}
+          handlePasswordChange={handlePasswordChange}
         />
       )}
 
