@@ -20,7 +20,7 @@ const Step1 = ({ basicInfo, setBasicInfo, formSubmitted, handleBasicInfoSubmit, 
                 />
                 {formSubmitted && basicInfo.username.trim() === '' && <div className="text-danger">Username cannot be empty.</div>}
                 {formSubmitted && basicInfo.username.trim() !== '' && !uniqueUser
-                 && <div className="text-danger">Username is already taken..</div>}
+                 && <div className="text-danger">Username is already taken.</div>}
               </div>
   
               <div className="form-group">

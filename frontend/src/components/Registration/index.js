@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Modal, Button } from 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 
 import Step1 from './Step1';
@@ -29,6 +28,7 @@ const Registration = () => {
 
 
   const validPhoneNumber = (value) => !isNaN(Number(value)) && value.trim().length === 10;
+
 
   const validAge = (birthdate) => {
     const today = new Date();
@@ -67,6 +67,7 @@ const Registration = () => {
     }
     
   };
+
 
   const handleDetailsSubmit = async (e) => {
     e.preventDefault();
