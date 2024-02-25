@@ -73,14 +73,16 @@ const Registration = () => {
     e.preventDefault();
     setFinalSubmitted(true)
 
-      // Check if any of the fields is empty
       if (
         details.email.trim() === '' ||
         details.phoneNumber.trim() === '' ||
         details.birthday.trim() === '' ||
         details.gender.trim() === '' ||
         details.schoolProgram.trim() === '' ||
-        details.yearOfStudy === ''
+        details.yearOfStudy === '' ||
+        details.phoneNumber.trim().length !== 10 ||
+        isNaN(Number(details.phoneNumber)) ||
+        !validAge(details.birthday)
       ) {
         // If any field is empty, display a message and do not proceed to the next step
         return;
