@@ -30,8 +30,8 @@ const Listings = () => {
                                 <a className="nav-link" href="javascript:void(0)"><button className="btn btn-primary mt-2">Ask</button></a>
                             </li>
                             <li class="nav-item m-2">
-                                {/* Needed links for rental information*/}
-                                <a class="nav-link" href="javascript:void(0)"><button class="btn btn-primary mt-2">Rental Information</button></a>
+                                {/* Links to discussion board*/}
+                                <a class="nav-link" href="javascript:void(0)"><button class="btn btn-primary mt-2">Discussion Board</button></a>
                             </li>
                             <li class="nav-item m-2">
                                 {/* Page that has all of users' favourites */}
