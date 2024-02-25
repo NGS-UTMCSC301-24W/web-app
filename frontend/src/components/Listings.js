@@ -7,19 +7,11 @@ const Listings = () => {
             {/* Nav Bar */}
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div className="container-fluid">
-
-                    <a className="navbar-brand p-4" href="javascript:void(0)">Uhome</a>
-
-                    <form className="d-flex align-items-center">
-                        <input className="form-control me-2" type="text" placeholder="Search" />
-                        <button className="btn btn-primary btn-sm" type="button">Search</button>
-                    </form>
-
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     
-                    <div className="collapse navbar-collapse justify-content-end" id="mynavbar">
+                    <div className="collapse navbar-collapse justify-content-start" id="mynavbar">
                         <ul className="navbar-nav me-5">
                             <li className="nav-item m-2">
                                 {/* Sign in/Already Signed In */}
@@ -182,31 +174,6 @@ const Listings = () => {
                     </h4>
                 </div>
             </div>
-
-            {/* Footer */}
-            <footer className="mt-5 bg-primary">
-                
-                <div className="container row px-4 py-4">
-                    <section className="col-md-6 col-sm-12 px-2">
-                        <h5>Privacy&Terms</h5>
-                    </section>
-                    <section className="col-md-6 col-sm-12 px-2">
-                        <h5>Contact</h5>
-                    </section>
-                </div>
-                {/* socials */}
-                <div className="mt-2 bg-utm-dark-blue container-fluid py-3">
-                    <section className="align-content-center text-center py-2">
-                        <h4>Follow Uhome</h4>
-                        <ul class="list-unstyled">
-                            <li class="list-inline-item">Instagram</li>
-                            <li class="list-inline-item">Twitter</li>
-                            <li class="list-inline-item">YouTube</li>
-                            <li class="list-inline-item">More Social Media</li>
-                        </ul>
-                    </section>
-                </div>
-            </footer>
         </div>
     );
 }

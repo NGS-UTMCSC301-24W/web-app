@@ -1,6 +1,8 @@
 /* src/index.css */
-body {
+body, html {
   font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .App {
@@ -31,5 +33,6 @@ button {
   cursor: pointer;
   border: none;
 }
+
 
 @import "../node_modules/ol/ol.css";

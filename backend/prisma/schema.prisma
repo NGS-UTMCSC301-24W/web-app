@@ -44,8 +44,15 @@ type RoomCount {
 }
 
 model User {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  username    String   @unique
-  password    String   // Assuming password is a string, update the type accordingly
-  email       String   @unique
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  username        String   @unique
+  fullName        String
+  password        String
+  role            String
+  email           String   @unique
+  phoneNumber     String
+  birthday        DateTime
+  gender          String
+  schoolProgram   String
+  yearOfStudy     Int
 }

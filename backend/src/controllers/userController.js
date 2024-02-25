@@ -2,9 +2,35 @@ const userService = require('../services/userService');
 const bcrypt = require('bcrypt');
 
 const registerUserController = async (req, res) => {
-  const { username, password, email } = req.body;
+  const { username, fullName, password, role, email, 
+    phoneNumber, birthday, gender, schoolProgram, yearOfStudy } = req.body;
+
+  // Check uniqueness before creating the user
+  const isEmailUnique = await userService.isEmailUnique(email);
+  const isUsernameUnique = await userService.isUsernameUnique(username);
+
+  if (!isEmailUnique) {
+    return res.status(400).json({ error: 'Email is already taken.' });
+  }
+
+  if (!isUsernameUnique) {
+    return res.status(400).json({ error: 'Username is already taken.' });
+  }
+
+
   try {
-    const newUser = await userService.createUser(username, password, email);
+    const newUser = await userService.createUser({
+      username,
+      fullName,
+      password,
+      role,
+      email,
+      phoneNumber,
+      birthday,
+      gender,
+      schoolProgram,
+      yearOfStudy,
+    });
 
     res.status(201).json({ message: 'User registered successfully', user: newUser });
   } catch (error) {
@@ -12,6 +38,7 @@ const registerUserController = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
 
 async function loginUserController(req, res) {
   
