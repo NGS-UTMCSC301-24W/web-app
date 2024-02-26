@@ -34,11 +34,10 @@ const DropdownSelect = () => {
       value={selectedOption}
       onChange={handleChange}
     >
-      <option value="/">Home</option>
+      <option value="/listings">Listings</option>
       <option value="/login">Login</option>
       <option value="/registration">Registration</option> {/* Corrected typo */}
       <option value="/listing">Filter</option>
-      <option value="/listings">Listings</option>
       <option value="/create-listing">Create Listing</option>
       <option value="/list/65bfafc116524254cd07f34b">Example Listing Details</option>
     </select>

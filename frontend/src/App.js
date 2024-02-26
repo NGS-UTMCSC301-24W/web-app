@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-import Home from './components/Home';
 import Login from './components/Login';
 import Registration from './components/Registration';
 import Filter from "./components/Filter/Filter";
@@ -22,11 +21,11 @@ const App = () => {
       <div>
         <Layout>
           <Switch>
-            <Route path="/" exact component={Home} />
+            {/* <Route path="/" exact component={Home} /> */}
             <Route path="/login" component={Login} />
             <Route path="/Registration" component={Registration} />
             <Route path="/listing" component={Filter}/>
-            <Route path="/listings" component={Listings} />
+            <Route path="/listings" exact component={Listings} />
             <Route path="/create-listing" component={CreateListingPage}/>
             <Route path="/list/:id" component={Details}/>
           </Switch>
