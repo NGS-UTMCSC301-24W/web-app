@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import constants from "../../constants.json";
+import React, { useState } from 'react';
 
-const Filter = () => {
-  const [listings, setListings] = useState([]);
+const SearchFilter = ({ onFilterChange }) => {
   const [filter, setFilter] = useState({
     priceRange: '',
     bedrooms: '',
@@ -11,20 +9,6 @@ const Filter = () => {
     leaser: '',
   });
 
-  useEffect(() => {
-    fetchListings();
-  }, []); // Fetch listings on component mount
-
-  const fetchListings = async () => {
-    try {
-      const response = await fetch(`${constants.API_BASE_URL}/listings/all`);
-      const data = await response.json();
-      setListings(data);
-    } catch (error) {
-      console.error('Error fetching listings:', error);
-    }
-  };
-
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilter({ ...filter, [name]: value });
@@ -32,35 +16,11 @@ const Filter = () => {
 
   const applyFilter = async () => {
     try {
-      // Filter out parameters with empty values
-      const filteredParameters = Object.entries(filter)
-        .filter(([key, value]) => value !== '')
-        .map(([key, value]) => `${key}=${value}`)
-        .join('&');
-      console.log(filteredParameters);
-
-      // Only proceed with the request if there are non-empty parameters
-      if (filteredParameters !== '') {
-        const response = await fetch(`${constants.API_BASE_URL}/listings/filter?${filteredParameters}`);
-        const data = await response.json();
-        console.log(data);
-
-        // Check if the filtered result is empty
-        if (data.length === 0) {
-          // Clear the listings page by setting an empty array
-          setListings([]);
-        } else {
-          setListings(data);
-        }
-      } else {
-        // If all filter parameters are empty, reset the listings to the full list
-        fetchListings();
-      }
+      onFilterChange(filter);
     } catch (error) {
       console.error('Error applying filter:', error);
     }
   };
-
   return (
     <div>
       <h2>Listings</h2>
@@ -136,25 +96,9 @@ const Filter = () => {
           ))}
         </select>
       </div>
-      {/* Add more filter input fields as needed */}
       <button onClick={applyFilter}>Apply Filter</button>
-      <ul>
-        {listings.map((listing) => (
-            <li key={listing.id}>
-              <strong>Title: {listing.title}</strong>
-              <p>Description: {listing.description}</p>
-              <p>Price: {listing.price}</p>
-              <p>Number of Bedrooms: {listing.roomCount.bedrooms}</p>
-              <p>Number of Bathrooms: {listing.roomCount.bathrooms}</p>
-              <p>Type: {listing.structuralType}</p>
-              <p>Leaser: {listing.leaser}</p>
-              {/* Display other listing details */}
-            </li>
-        ))}
-      </ul>
     </div>
-     
   );
 };
 
-export default Filter;
+export default SearchFilter;
