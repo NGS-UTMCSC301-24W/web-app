@@ -1,23 +1,15 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useHistory, Link } from 'react-router-dom';
+import SearchForm from '../components/Search/Search';
+import constants from '../constants.json';
+import axios from 'axios';
 import useSharedState from '../StateProvider/useSharedState';
-
 import LogoutButton from '../components/Logout';
 
 const Brand = () => (
   <Link className="navbar-brand p-4" to="/">
     Uhome
   </Link>
-);
-
-const SearchForm = () => (
-  <form className="d-flex align-items-center" style={{ margin: '0' }}>
-    <input className="form-control me-2" type="text" 
-      placeholder="Search" style={{ margin: '0', marginRight: '10px'}} />
-    <button className="btn btn-primary" type="button">
-      Search
-    </button>
-  </form>
 );
 
 const DropdownSelect = () => {
@@ -45,6 +37,7 @@ const DropdownSelect = () => {
             <option value="/create-listing">Create Listing</option>
             <option value="/listing">Filter</option>
             <option value="/listings">Listings</option>
+            <option value="/discussion-board">Discussion Board</option>
           </>
         ) : (
           <>
@@ -61,15 +54,47 @@ const DropdownSelect = () => {
 const NavBar = () => {
   const { sharedState } = useSharedState();
 
-  return(
+const NavBar = () => {
+  const history = useHistory();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState(null);
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(`${constants.API_BASE_URL}/search/rentalListings?query=${searchTerm}`);
+      console.log(response.data);
+      setSearchResults(response.data);
+    } catch (error) {
+      console.error('Error searching:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (searchResults) {
+      history.push({
+      pathname: '/search-results',
+      state: { results: searchResults },
+    });
+    }
+  }, [searchResults]);
+
+  const onSearchChange = (searchValue) => {
+    setSearchTerm(searchValue);
+  };
+
+  const onSearchSubmit = (event) => {
+    event.preventDefault();
+    handleSearch();
+  };
+
+  return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div className="container-fluid" >
-      <Brand />
-      <SearchForm />
-      {sharedState.isLoggedIn ? <LogoutButton /> : null}
-      <DropdownSelect />
-    </div>
-  </nav>
+      <div className="container-fluid">
+        <Brand />
+        <SearchForm onChange={onSearchChange} onSubmit={onSearchSubmit} />
+        <DropdownSelect />
+      </div>
+    </nav>
   );
 };
 

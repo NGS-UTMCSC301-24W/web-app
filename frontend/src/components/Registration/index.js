@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Modal, Button } from 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 
 import Step1 from './Step1';
@@ -23,9 +22,13 @@ const Registration = () => {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [finalSubmitted, setFinalSubmitted] = useState(false);
+  const [uniqueUser, setUniqueUser] = useState(true);
+  const [uniqueEmail, setUniqueEmail] = useState(true);
+  const [passwordLengthError, setPasswordLengthError] = useState(false);
 
 
   const validPhoneNumber = (value) => !isNaN(Number(value)) && value.trim().length === 10;
+
 
   const validAge = (birthdate) => {
     const today = new Date();
@@ -54,6 +57,10 @@ const Registration = () => {
     ) {
       // If any field is empty, display a message and do not proceed to the next step
       return;
+    }     
+    if (basicInfo.password.length < 6 || basicInfo.password.length > 20) {
+      setPasswordLengthError(true);
+      return;
     } else {
       console.log(basicInfo)
       setStep(2);
@@ -61,18 +68,21 @@ const Registration = () => {
     
   };
 
+
   const handleDetailsSubmit = async (e) => {
     e.preventDefault();
     setFinalSubmitted(true)
 
-      // Check if any of the fields is empty
       if (
         details.email.trim() === '' ||
         details.phoneNumber.trim() === '' ||
         details.birthday.trim() === '' ||
         details.gender.trim() === '' ||
         details.schoolProgram.trim() === '' ||
-        details.yearOfStudy === ''
+        details.yearOfStudy === '' ||
+        details.phoneNumber.trim().length !== 10 ||
+        isNaN(Number(details.phoneNumber)) ||
+        !validAge(details.birthday)
       ) {
         // If any field is empty, display a message and do not proceed to the next step
         return;
@@ -95,13 +105,37 @@ const Registration = () => {
         console.log('User registered successfully');
         history.push('/');
       } else {
+        const errorData = await response.json();
         console.error('Failed to register user');
         console.error('Status Code:', response.status);
+  
+        if (errorData && (errorData.error === 'Email is already taken.' || errorData.error === 'Username is already taken.' )) {
+          if (errorData.error === 'Username is already taken.') {
+            setStep(1);
+            setUniqueUser(false);
+            setUniqueEmail(true); 
+          } else if (errorData.error === 'Email is already taken.') {
+            setUniqueEmail(false);
+            setUniqueUser(true); 
+          }
+        }
       }
     } catch (error) {
       console.error('Error:', error);
     }
   };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setBasicInfo(prevState => ({ ...prevState, password: newPassword }));
+  
+    // Asynchronously ensure the comparison is made with the most current state
+    setConfirmPass(prevConfirmPass => {
+      setPasswordMatch(newPassword === prevConfirmPass);
+      return prevConfirmPass;
+    });
+  };
+  
 
 
   const handleConfirmPasswordChange = (e) => {
@@ -123,6 +157,9 @@ const Registration = () => {
           handleConfirmPasswordChange={handleConfirmPasswordChange}
           passwordMatch={passwordMatch}
           confirmPass={confirmPass}
+          uniqueUser={uniqueUser}
+          passwordLengthError={passwordLengthError}
+          handlePasswordChange={handlePasswordChange}
         />
       )}
 
@@ -134,6 +171,7 @@ const Registration = () => {
           details={details}
           setDetails={setDetails}
           handleDetailsSubmit={handleDetailsSubmit}
+          uniqueEmail={uniqueEmail}
         />
         
       )}

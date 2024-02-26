@@ -1,7 +1,8 @@
 import React from 'react';
 import './index.css';
 
-const Step1 = ({ basicInfo, setBasicInfo, formSubmitted, handleBasicInfoSubmit, passwordMatch, handleConfirmPasswordChange, confirmPass }) => {
+const Step1 = ({ basicInfo, setBasicInfo, formSubmitted, handleBasicInfoSubmit, passwordMatch, 
+  handleConfirmPasswordChange, confirmPass, uniqueUser, passwordLengthError, handlePasswordChange }) => {
   return (
     <>
       <h2 style={{marginTop: '2rem', marginBottom: '2rem' }}>Step 1: Basic Information</h2>
@@ -18,6 +19,8 @@ const Step1 = ({ basicInfo, setBasicInfo, formSubmitted, handleBasicInfoSubmit, 
                   onChange={(e) => setBasicInfo({ ...basicInfo, username: e.target.value })}
                 />
                 {formSubmitted && basicInfo.username.trim() === '' && <div className="text-danger">Username cannot be empty.</div>}
+                {formSubmitted && basicInfo.username.trim() !== '' && !uniqueUser
+                 && <div className="text-danger">Username is already taken.</div>}
               </div>
   
               <div className="form-group">
@@ -39,9 +42,11 @@ const Step1 = ({ basicInfo, setBasicInfo, formSubmitted, handleBasicInfoSubmit, 
                   type="password"
                   className="form-control"
                   value={basicInfo.password}
-                  onChange={(e) => setBasicInfo({ ...basicInfo, password: e.target.value })}
+                  onChange={handlePasswordChange}
                 />
                 {formSubmitted && basicInfo.password.trim() === '' && <div className="text-danger">Password cannot be empty.</div>}
+                {formSubmitted && basicInfo.password.trim() !== '' && passwordLengthError
+                  && <div className="text-danger">Password must be between 6 and 20 characters.</div>}
               </div>
   
               <div className="form-group">
@@ -73,7 +78,7 @@ const Step1 = ({ basicInfo, setBasicInfo, formSubmitted, handleBasicInfoSubmit, 
                 onChange={() => setBasicInfo({ ...basicInfo, role: 'user' })}
               />
               <label className="form-check-label" htmlFor="userCheckbox">
-                User
+                Student
               </label>
             </div>
           </div>
