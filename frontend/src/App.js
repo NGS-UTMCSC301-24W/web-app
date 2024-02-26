@@ -10,6 +10,7 @@ import Listings from './components/Listings';
 import CreateListingPage from './components/CreateListingPage';
 import Details from './components/Details';
 import Layout from './layout';
+import SearchResults from './components/Search/SearchResults';
 
 import './bs/css/bootstrap.min.css';
 import './bs/css/custom.css';
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/listings" exact component={Listings} />
             <Route path="/create-listing" component={CreateListingPage}/>
             <Route path="/list/:id" component={Details}/>
+            <Route path="/search-results" exact component={SearchResults} />
           </Switch>
         </Layout>
         
