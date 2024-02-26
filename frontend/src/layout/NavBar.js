@@ -52,9 +52,6 @@ const DropdownSelect = () => {
 };
 
 const NavBar = () => {
-  const { sharedState } = useSharedState();
-
-const NavBar = () => {
   const history = useHistory();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState(null);
