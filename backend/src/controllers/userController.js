@@ -2,6 +2,8 @@ const userService = require('../services/userService');
 const bcrypt = require('bcrypt');
 
 const registerUserController = async (req, res) => {
+  console.log("SessonR:")
+  console.log(req.session);
   const { username, fullName, password, role, email, 
     phoneNumber, birthday, gender, schoolProgram, yearOfStudy } = req.body;
 
@@ -28,7 +30,8 @@ const registerUserController = async (req, res) => {
 
 
 async function loginUserController(req, res) {
-  
+  console.log("SessonL:")
+  console.log(req.session);
   const { username, password } = req.body;
   try {
     const user = await userService.getUserByUsername(username);
@@ -54,8 +57,23 @@ async function loginUserController(req, res) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+
+async function logoutUserController(req, res) {
+  const { username } = req.body;
+
+  try {
+    await req.session.destroy();
+    console.log('User: ${username} has logged out')
+} catch (err) {
+    console.error('Error logging out:', err);
+    return next(new Error('Error logging out'));
+}
+
+res.status(200).send();
+}
   
 module.exports = {
   registerUserController,
   loginUserController,
+  logoutUserController,
 };

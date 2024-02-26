@@ -11,16 +11,26 @@ const app = express()
 app.locals.prisma = new PrismaClient();
 
 app.use(express.json())
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
+
+const store = MongoDBStore.create({
+  mongoUrl: 'mongodb+srv://uhome:jIUYvEAfe0Ei5LBK@uhomecluster.n5eb67d.mongodb.net/db?authSource=admin&retryWrites=true&w=majority',
+  dbName: 'User',
+});
+
+store.on('error', function(error) {
+  console.error('Session store error:', error);
+});
+
 app.use(
   session({
-    secret: 'your-secret-key',
+    secret: 'asduAWdh3$r3r23jrb!dcef-d',
     resave: false,
     saveUninitialized: true,
-    store: MongoDBStore.create({
-      mongoUrl: 'mongodb+srv://uhome:jIUYvEAfe0Ei5LBK@uhomecluster.n5eb67d.mongodb.net/db?authSource=admin&retryWrites=true&w=majority',
-      dbName: 'User',
-    }),
+    store: store,
     cookie: { maxAge: 60 * 60 * 1000 },
   })
 );

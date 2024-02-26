@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
+import useSharedState from '../StateProvider/useSharedState';
+
+import LogoutButton from '../components/Logout';
 
 const Brand = () => (
   <Link className="navbar-brand p-4" to="/">
@@ -20,6 +23,7 @@ const SearchForm = () => (
 const DropdownSelect = () => {
   const history = useHistory();
   const [selectedOption, setSelectedOption] = useState('/');
+  const { sharedState, updateState } = useSharedState();
 
   const handleChange = (event) => {
     const selectedValue = event.target.value;
@@ -35,25 +39,38 @@ const DropdownSelect = () => {
       onChange={handleChange}
     >
       <option value="/">Home</option>
-      <option value="/login">Login</option>
-      <option value="/registration">Registration</option> {/* Corrected typo */}
-      <option value="/listing">Filter</option>
-      <option value="/listings">Listings</option>
-      <option value="/create-listing">Create Listing</option>
-      <option value="/list/65bfafc116524254cd07f34b">Example Listing Details</option>
+      {sharedState.isLoggedIn ? (
+          <>
+            <option value="/login">Profile</option>
+            <option value="/create-listing">Create Listing</option>
+            <option value="/listing">Filter</option>
+            <option value="/listings">Listings</option>
+          </>
+        ) : (
+          <>
+            <option value="/login">Login</option>
+            <option value="/registration">Registration</option> {/* Corrected typo */}
+            <option value="/list/65bfafc116524254cd07f34b">Example Listing Details</option>
+          </>
+        )
+      }
     </select>
   );
 };
 
+const NavBar = () => {
+  const { sharedState } = useSharedState();
 
-const NavBar = () => (
-  <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+  return(
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
     <div className="container-fluid" >
       <Brand />
       <SearchForm />
+      {sharedState.isLoggedIn ? <LogoutButton /> : null}
       <DropdownSelect />
     </div>
   </nav>
-);
+  );
+};
 
 export default NavBar;

@@ -11,29 +11,32 @@ import Listings from './components/Listings';
 import CreateListingPage from './components/CreateListingPage';
 import Details from './components/Details';
 import Layout from './layout';
+import StateProvider from './StateProvider/StateProvider';
 
 import './bs/css/bootstrap.min.css';
 import './bs/css/custom.css';
 import './bs/js/bootstrap.bundle.min.js';
 
 const App = () => {
+
   return (
-    <Router>
-      <div>
-        <Layout>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/Registration" component={Registration} />
-            <Route path="/listing" component={Filter}/>
-            <Route path="/listings" component={Listings} />
-            <Route path="/create-listing" component={CreateListingPage}/>
-            <Route path="/list/:id" component={Details}/>
-          </Switch>
-        </Layout>
-        
-      </div>
-    </Router >
+    <StateProvider>
+      <Router>
+        <div>
+          <Layout>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/login" component={Login} />
+              <Route path="/Registration" component={Registration} />
+              <Route path="/listing" component={Filter}/>
+              <Route path="/listings" component={Listings} />
+              <Route path="/create-listing" component={CreateListingPage}/>
+              <Route path="/list/:id" component={Details}/>
+            </Switch>
+          </Layout>
+        </div>
+      </Router >
+    </StateProvider>
   );
 };
 
