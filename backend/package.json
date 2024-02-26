@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "node src/index.js"
+    "dev": "node src/index.js",
+    "prisma-push": "npx prisma db push"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.504.0",

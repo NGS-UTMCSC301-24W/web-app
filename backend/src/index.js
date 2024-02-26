@@ -6,13 +6,17 @@ const { PrismaClient } = require('@prisma/client')
 
 const userRoutes = require('./routes/userRoutes');
 const listingRoutes = require('./routes/listingRoutes');
+const discussionPostRoutes = require('./routes/discussionPostRoutes');
 const searchRoutes = require('./routes/searchRoutes');
 
 const app = express()
 app.locals.prisma = new PrismaClient();
 
 app.use(express.json())
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 app.use(
   session({
     secret: 'your-secret-key',
@@ -28,6 +32,7 @@ app.use(
 
 app.use('/listings', listingRoutes);
 app.use('/users', userRoutes);
+app.use('/discussion-board', discussionPostRoutes);
 app.use('/search', searchRoutes);
 
 const server = app.listen(3001, () =>
