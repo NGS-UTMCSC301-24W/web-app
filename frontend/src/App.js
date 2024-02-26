@@ -8,10 +8,10 @@ import Registration from './components/Registration';
 import Filter from "./components/Filter/Filter";
 import Listings from './components/Listings';
 import CreateListingPage from './components/CreateListingPage';
+import Details from './components/ExampleListing/Details.js';
 import DiscussionBoard from './components/DiscussionBoard';
 import UpsertPost from './components/DiscussionBoard/UpsertPost.js';
 import Post from './components/DiscussionBoard/PostDetails.js';
-import Details from './components/Details';
 import Layout from './layout';
 import SearchResults from './components/Search/SearchResults';
 import StateProvider from './StateProvider/StateProvider';
@@ -28,7 +28,7 @@ const App = () => {
       <div>
         <Layout>
           <Switch>
-            {/* <Route path="/" exact component={Home} /> */}
+            {<Route path="/" exact component={Listings} /> }
             <Route path="/login" component={Login} />
             <Route path="/Registration" component={Registration} />
             <Route path="/listing" component={Filter}/>
