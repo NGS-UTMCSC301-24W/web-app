@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import useSharedState from '../StateProvider/useSharedState';
 
 const Login = () => {
   const history = useHistory();
@@ -7,6 +8,8 @@ const Login = () => {
     username: '',
     password: '',
   });
+
+  const { sharedState, updateState } = useSharedState();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,9 +30,12 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(userData),
+        credentials: 'include',
       });
       console.log("---", userData)
       if (response.ok) {
+        updateState({ isLoggedIn: true });
+        //console.log(sharedState.isLoggedIn);
         console.log('User Login successfully');
         history.push('/');
       } else {
@@ -42,6 +48,10 @@ const Login = () => {
     // Reset form fields after submission
     setFormData({ username: '', password: '' });
   };
+
+  useEffect(() => {
+    console.log(sharedState.isLoggedIn);
+  }, [sharedState.isLoggedIn]);
 
   return (
     <div>
