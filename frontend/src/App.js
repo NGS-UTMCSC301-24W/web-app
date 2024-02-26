@@ -14,14 +14,17 @@ import Post from './components/DiscussionBoard/PostDetails.js';
 import Details from './components/Details';
 import Layout from './layout';
 import SearchResults from './components/Search/SearchResults';
+import StateProvider from './StateProvider/StateProvider';
 
 import './bs/css/bootstrap.min.css';
 import './bs/css/custom.css';
 import './bs/js/bootstrap.bundle.min.js';
 
 const App = () => {
+
   return (
-    <Router>
+    <StateProvider>
+      <Router>
       <div>
         <Layout>
           <Switch>
@@ -42,6 +45,7 @@ const App = () => {
         
       </div>
     </Router >
+    </StateProvider>
   );
 };
 
