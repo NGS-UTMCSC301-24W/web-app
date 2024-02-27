@@ -55,6 +55,7 @@ const NavBar = () => {
   const history = useHistory();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState(null);
+  const { sharedState, updateState } = useSharedState();
 
   const handleSearch = async () => {
     try {
@@ -89,6 +90,7 @@ const NavBar = () => {
       <div className="container-fluid">
         <Brand />
         <SearchForm onChange={onSearchChange} onSubmit={onSearchSubmit} />
+        {sharedState.isLoggedIn ? <LogoutButton /> : null}
         <DropdownSelect />
       </div>
     </nav>
