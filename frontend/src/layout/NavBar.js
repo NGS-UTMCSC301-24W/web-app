@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-import SearchForm from '../components/Search/Search';
-import constants from '../constants.json';
 import axios from 'axios';
+import constants from '../constants.json';
 import useSharedState from '../StateProvider/useSharedState';
+import SearchForm from '../components/Search/Search';
 import LogoutButton from '../components/Logout';
+
+import './NavBar.css';
 
 const Brand = () => (
   <Link className="navbar-brand p-4" to="/">
@@ -12,15 +14,28 @@ const Brand = () => (
   </Link>
 );
 
+const SignIn = () => (
+  <Link className="navbar-brand p-4 sign-in-link" to="/login">
+    Login
+  </Link>
+);
+
+const Register = () => (
+  <Link className="navbar-brand p-4 log-in-link" to="/registration">
+    Register
+  </Link>
+);
+
+
 const DropdownSelect = () => {
   const history = useHistory();
   const [selectedOption, setSelectedOption] = useState('/');
-  const { sharedState, updateState } = useSharedState();
+  const { sharedState } = useSharedState();
 
   const handleChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedOption(selectedValue);
-    history.push(selectedValue); // Navigate to the selected page
+    history.push(selectedValue);
   };
 
   return (
@@ -32,21 +47,17 @@ const DropdownSelect = () => {
     >
       <option value="/">Home</option>
       {sharedState.isLoggedIn ? (
-          <>
-            <option value="/login">Profile</option>
-            <option value="/create-listing">Create Listing</option>
-            <option value="/listing">Filter</option>
-            <option value="/listings">Listings</option>
-            <option value="/discussion-board">Discussion Board</option>
-          </>
-        ) : (
-          <>
-            <option value="/login">Login</option>
-            <option value="/registration">Registration</option> {/* Corrected typo */}
-            <option value="/list/65bfafc116524254cd07f34b">Example Listing Details</option>
-          </>
-        )
-      }
+        <>
+          <option value="/profile">Profile</option>
+          <option value="/create-listing">Create Listing</option>
+          <option value="/listing">Filter</option>
+          <option value="/listings">Listings</option>
+          <option value="/discussion-board">Discussion Board</option>
+        </>
+      ) : (
+        <>
+        </>
+      )}
     </select>
   );
 };
@@ -55,12 +66,11 @@ const NavBar = () => {
   const history = useHistory();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState(null);
-  const { sharedState, updateState } = useSharedState();
+  const { sharedState } = useSharedState();
 
   const handleSearch = async () => {
     try {
       const response = await axios.get(`${constants.API_BASE_URL}/search/rentalListings?query=${searchTerm}`);
-      console.log(response.data);
       setSearchResults(response.data);
     } catch (error) {
       console.error('Error searching:', error);
@@ -69,12 +79,9 @@ const NavBar = () => {
 
   useEffect(() => {
     if (searchResults) {
-      history.push({
-      pathname: '/search-results',
-      state: { results: searchResults },
-    });
+      history.push('/search-results', { results: searchResults });
     }
-  }, [searchResults]);
+  }, [searchResults, history]);
 
   const onSearchChange = (searchValue) => {
     setSearchTerm(searchValue);
@@ -90,8 +97,13 @@ const NavBar = () => {
       <div className="container-fluid">
         <Brand />
         <SearchForm onChange={onSearchChange} onSubmit={onSearchSubmit} />
-        {sharedState.isLoggedIn ? <LogoutButton /> : null}
-        <DropdownSelect />
+        {sharedState.isLoggedIn ? <LogoutButton /> : 
+          <div class="auth-links">
+            <SignIn /> 
+            <Register />
+          </div>
+          }
+        {sharedState.isLoggedIn ? <DropdownSelect /> : <></>}
       </div>
     </nav>
   );

@@ -6,7 +6,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Login from './components/Login';
 import Registration from './components/Registration';
 import Filter from "./components/Filter/Filter";
-import Listings from './components/Listings';
+import Listings from './components/Home';
 import CreateListingPage from './components/CreateListingPage';
 import Details from './components/ExampleListing/Details.js';
 import DiscussionBoard from './components/DiscussionBoard';

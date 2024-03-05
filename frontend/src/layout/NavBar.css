@@ -1,0 +1,11 @@
+.auth-links {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; /* Adjust the space between the links */
+  }
+  
+  .sign-in-link, .log-in-link {
+    margin-right: 0; /* Remove any existing right margin */
+    padding: 10px 20px; /* Adjust padding, if necessary */
+    /* Add any other shared styles here */
+  }
