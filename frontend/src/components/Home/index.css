@@ -1,14 +1,15 @@
-
 .row {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* Space between cards */
+    flex-grow: 1;
 }
 
 .card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some shadow for depth */
-    border-radius: 10px; /* Rounded corners */
-    overflow: hidden; /* Ensures the image fits the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    flex: 1;
+    width: 45vw;
 }
 
 .card-img-top {
@@ -47,3 +48,14 @@
     border: none;
     cursor: pointer;
 }
+
+.carousel {
+    margin-bottom: 2rem; 
+    width: 90vw;
+  }
+  
+  .carousel-item img {
+    width: 100%; /* Make the images fill the entire width of the Carousel */
+    height: 20rem; /* Set a fixed height for the images */
+    object-fit: cover; /* Ensure the images cover the entire Carousel item */
+  }

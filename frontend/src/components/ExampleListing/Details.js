@@ -1,61 +1,69 @@
-import Carousel from "./Carousel";
-const DetailsPage = (router) => {
-    const listingId = router.match.params.id;
-    const data = {
-      "location": {
-        "type": "Point",
-        "coordinates": [
-          -79.6729838,
-          43.5482599
-        ]
-      },
-      "roomCount": {
-        "bedrooms": 100,
-        "bathrooms": 10
-      },
-      "id": "65bfafc116524254cd07f34b",
-      "title": "University of Toronto Mississauga",
-      "description": "University for Sale! Great Deal! Don't miss it!!!!",
-      "address": "3359 Mississauga Rd, Mississauga, ON L5L 1C6",
-      "price": 1000000000,
-      "structuralType": "HOUSE",
-      "leaser": "OWNER"
-    };
-  
-    const toPascalCase = (str) => str
-      .split(' ')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
-      const images = [
-        "https://csc301-uhome-images.s3.us-east-1.amazonaws.com/50616376962f449a93b0f99a0c2aef1f.jpg",
-        "https://csc301-uhome-images.s3.us-east-1.amazonaws.com/b06e9ba890934da4a24d7fc0e813b699.jpg",
-        "https://csc301-uhome-images.s3.us-east-1.amazonaws.com/dd9905e277e8410494d11a0b247147bf.jpg"
-      ];
-    const formatPrice = (num) => parseInt(num).toLocaleString();
-  
-    return (
-      <div>
-        <Carousel images={images}/>
-        <h2>{data.title}</h2>
-        <p>{data.description}</p>
-        <p>{data.address}</p>
-        <p>${formatPrice(data.price)}</p>
-        <hr />
-        <ul>
-          <li>Bedrooms: {data.roomCount.bedrooms}</li>
-          <li>Bathrooms: {data.roomCount.bathrooms}</li>
-          <li>Type: {toPascalCase(data.structuralType)}</li>
-          <li>Leaser: {toPascalCase(data.leaser.toLowerCase())}</li>
-        </ul>
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Card, Carousel } from 'react-bootstrap';
+import constants from "../../constants.json";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './details.css';
 
-        <iframe
-          src={`http://maps.google.com/maps?q=${data.location.coordinates[1]},${data.location.coordinates[0]}8&z=13&output=embed`}
-          width="400" height="300"
-          style={{ border: 0 }} allowfullscreen=""
-          loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-        />
-      </div>
-    );
-  };
-  
-  export default DetailsPage;
+const DetailsPage = () => {
+  const [pageId, setPageID] = useState(null);
+  const [listings, setListings] = useState([]);
+
+  useEffect(() => {
+    const currentURL = window.location.href;
+    const urlParts = currentURL.split('/');
+    const id = urlParts[urlParts.length - 1];
+    setPageID(id);
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${constants.API_BASE_URL}/listings/all`);
+        const data = await response.json();
+        const filteredListings = data.filter(listing => listing.id === pageId);
+        setListings(filteredListings);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, [pageId]);
+
+  return (
+    <div className='container'>
+      <Container>
+        <Row>
+          {listings.map((listing) => (
+            <Col key={listing.id} lg={25}>
+              <Carousel>
+                {listing.images.map((image, index) => (
+                  <Carousel.Item key={index}>
+                    <img src={image} 
+                      alt={`Slide ${index + 1}`} 
+                      className="d-block w-100" 
+                      style={{height: '35rem'}}/>
+                    <Carousel.Caption>
+                      <h3>{listing.title}</h3>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                ))}
+              </Carousel>
+              <div className="listing-container">
+                <h3>{listing.title}</h3>
+                <p className="text-start">{listing.description}</p>
+                <p className="text-start"><strong>Address:</strong> {listing.address}</p>
+                <p className="text-start"><strong>Property Type:</strong> {listing.structuralType}</p>
+                <p className="text-start"><strong>Price:</strong> ${listing.price}</p>
+                <p className="text-start"><strong>Rooms:</strong>
+                  {listing.roomCount ? ` ${listing.roomCount.bedrooms} Bedrooms, ${listing.roomCount.bathrooms} Bathrooms` : ' Room details not available'}
+                </p>
+              </div>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </div>
+  );
+};
+
+export default DetailsPage;

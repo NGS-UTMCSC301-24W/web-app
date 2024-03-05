@@ -54,30 +54,32 @@ const Login = () => {
   }, [sharedState.isLoggedIn]);
 
   return (
-    <div>
-      <h2>Login Page</h2>
+    <div className='container'>
+      <h2 style={{marginTop: '2rem', marginBottom: '2rem' }}>Login Page</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          Username:
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <button type="submit">Login</button>
+        <div className='col-md-6'>
+          <div className="form-group mb-3">
+            <label>Username:</label>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              className="form-control"
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label>Password:</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="form-control"
+            />
+          </div>
+        </div>
+        <button type="submit" className="btn btn-primary">Login</button>
       </form>
     </div>
   );

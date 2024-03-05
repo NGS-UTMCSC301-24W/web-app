@@ -1,17 +1,5 @@
 import React from 'react';
 
-const PrivacyTermsSection = () => (
-  <section className="col-md-6 col-sm-12 px-2">
-    <h5>Privacy & Terms</h5>
-  </section>
-);
-
-const ContactSection = () => (
-  <section className="col-md-6 col-sm-12 px-2">
-    <h5>Contact</h5>
-  </section>
-);
-
 const FollowUsSection = () => (
   <div className="mt-2 bg-utm-dark-blue container-fluid py-3">
     <section className="align-content-center text-center py-2">
@@ -29,8 +17,6 @@ const FollowUsSection = () => (
 const Footer = () => (
   <footer className="mt-5 bg-primary" style={{ marginBottom: 0 }}>
     <div className="container row px-4 py-4">
-      <PrivacyTermsSection />
-      <ContactSection />
     </div>
     <FollowUsSection />
   </footer>

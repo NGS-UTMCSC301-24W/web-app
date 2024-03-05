@@ -1,0 +1,22 @@
+.listing-container {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .listing-image {
+    max-height: 30rem;
+    max-width: 100%;
+    border-radius: 8px; 
+  }
+  
+  .container {
+    margin-top: 2rem;
+  }
+
+  Container {
+    width: 10rem;
+  }
