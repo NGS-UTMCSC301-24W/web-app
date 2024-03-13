@@ -21,7 +21,6 @@ const Login = () => {
     // Add logic to handle login (e.g., send data to backend for authentication)
     const userData = { ...formData };
 
-    console.log( userData)
     try {
       // Send POST request to backend
       const response = await fetch('http://localhost:3001/users/login', {
@@ -34,8 +33,11 @@ const Login = () => {
       });
       console.log("---", userData)
       if (response.ok) {
-        updateState({ isLoggedIn: true });
-        //console.log(sharedState.isLoggedIn);
+        const userData = await response.json(); 
+        updateState({
+          isLoggedIn: true,
+          user: userData, 
+        });
         console.log('User Login successfully');
         history.push('/');
       } else {
@@ -50,7 +52,6 @@ const Login = () => {
   };
 
   useEffect(() => {
-    console.log(sharedState.isLoggedIn);
   }, [sharedState.isLoggedIn]);
 
   return (

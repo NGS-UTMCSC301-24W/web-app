@@ -16,7 +16,6 @@ const Listings = () => {
             try {
                 const response = await fetch(`${constants.API_BASE_URL}/listings/all`);
                 const data = await response.json();
-                console.log('-----------------', data);
                 setListings(data);
             } catch (error) {
                 console.error('Error fetching data:', error);

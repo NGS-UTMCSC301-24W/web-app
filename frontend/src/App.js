@@ -15,6 +15,7 @@ import Post from './components/DiscussionBoard/PostDetails.js';
 import Layout from './layout';
 import SearchResults from './components/Search/SearchResults';
 import StateProvider from './StateProvider/StateProvider';
+import profile from './components/profile';
 
 import './bs/css/bootstrap.min.css';
 import './bs/css/custom.css';
@@ -31,6 +32,7 @@ const App = () => {
             {<Route path="/" exact component={Listings} /> }
             <Route path="/login" component={Login} />
             <Route path="/Registration" component={Registration} />
+            <Route path="/profile" component={profile} />
             <Route path="/listing" component={Filter}/>
             <Route path="/listings" exact component={Listings} />
             <Route path="/create-listing" component={CreateListingPage}/>
