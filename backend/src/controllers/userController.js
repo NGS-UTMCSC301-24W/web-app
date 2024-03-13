@@ -76,13 +76,12 @@ async function logoutUserController(req, res) {
 
   try {
     await req.session.destroy();
-    console.log('User: ${username} has logged out')
-} catch (err) {
+    console.log(`User: ${username} has logged out successfully`);
+    res.status(200).send();
+  } catch (err) {
     console.error('Error logging out:', err);
-    return next(new Error('Error logging out'));
-}
-
-res.status(200).send();
+    res.status(500).json({ error: 'Error logging out' });
+  }
 }
 
 async function getUser(req, res) {

@@ -49,7 +49,7 @@ const Listings = () => {
             </Carousel.Item>
           </Carousel>
 
-          <div className="row" >
+          <div className="row" style={{marginLeft:'1rem'}}>
             {currentListings.map((listing) => (
               <div key={listing.id} className="col-md-6 mb-3">
                 <div className="card card-container" >

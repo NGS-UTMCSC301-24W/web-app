@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
+import useSharedState from './StateProvider/useSharedState';
 import Login from './components/Login';
 import Registration from './components/Registration';
 import Filter from "./components/Filter/Filter";
@@ -22,7 +23,7 @@ import './bs/css/custom.css';
 import './bs/js/bootstrap.bundle.min.js';
 
 const App = () => {
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  const { sharedState } = useSharedState();
 
   useEffect(() => {
     
@@ -34,7 +35,7 @@ const App = () => {
         <div>
           <Layout>
             <Switch>
-              {!isLoggedIn ? (
+              {sharedState.isLoggedIn ? (
                 <>
                   <Route path="/" exact component={Listings} />
                   <Route path="/profile" component={profile} />
@@ -54,6 +55,7 @@ const App = () => {
                   <Route path="/list/:id" component={Details} />
                   <Route path="/login" component={Login} />
                   <Route path="/registration" component={Registration} />
+                  <Route path="/search-results" exact component={SearchResults} />
                 </>
               )}
             </Switch>
