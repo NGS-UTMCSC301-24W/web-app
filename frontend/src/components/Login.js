@@ -31,13 +31,15 @@ const Login = () => {
         body: JSON.stringify(userData),
         credentials: 'include',
       });
-      console.log("---", userData)
       if (response.ok) {
         const userData = await response.json(); 
         updateState({
           isLoggedIn: true,
-          user: userData, 
         });
+        
+        //save login status locally
+        localStorage.setItem('isLoggedIn', 'true');
+
         console.log('User Login successfully');
         history.push('/');
       } else {

@@ -31,22 +31,22 @@ const Listings = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
-        <div className="container mt-4">
-            <Carousel>
-                <Carousel.Item>
-                <img
-                    className="d-block w-100"
-                    src="https://mtarch.com/wp-content/uploads/2022/05/21-W.G-DAVIS.jpg"
-                    alt="First slide"
-                />
-                </Carousel.Item>
-                <Carousel.Item>
-                <img
-                    className="d-block w-100"
-                    src="https://philosophy.utoronto.ca/wp-content/uploads/UTM-Library.jpg"
-                    alt="Second slide"
-                />
-                </Carousel.Item>
+        <div>
+          <Carousel>
+            <Carousel.Item>
+            <img
+                className="d-block w-100"
+                src="https://mtarch.com/wp-content/uploads/2022/05/21-W.G-DAVIS.jpg"
+                alt="First slide"
+            />
+            </Carousel.Item>
+            <Carousel.Item>
+            <img
+                className="d-block w-100"
+                src="https://philosophy.utoronto.ca/wp-content/uploads/UTM-Library.jpg"
+                alt="Second slide"
+            />
+            </Carousel.Item>
           </Carousel>
 
           <div className="row" >

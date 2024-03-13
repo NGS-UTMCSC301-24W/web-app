@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -22,31 +22,44 @@ import './bs/css/custom.css';
 import './bs/js/bootstrap.bundle.min.js';
 
 const App = () => {
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+  useEffect(() => {
+    
+  }, []);
 
   return (
     <StateProvider>
       <Router>
-      <div>
-        <Layout>
-          <Switch>
-            {<Route path="/" exact component={Listings} /> }
-            <Route path="/login" component={Login} />
-            <Route path="/Registration" component={Registration} />
-            <Route path="/profile" component={profile} />
-            <Route path="/listing" component={Filter}/>
-            <Route path="/listings" exact component={Listings} />
-            <Route path="/create-listing" component={CreateListingPage}/>
-            <Route path="/discussion-board" exact component={DiscussionBoard}/>
-            <Route path="/discussion-board/new" exact component={UpsertPost}/>
-            <Route path="/discussion-board/edit/:id" exact component={UpsertPost}/>
-            <Route path="/discussion-board/:id" exact component={Post}/>
-            <Route path="/list/:id" component={Details}/>
-            <Route path="/search-results" exact component={SearchResults} />
-          </Switch>
-        </Layout>
-        
-      </div>
-    </Router >
+        <div>
+          <Layout>
+            <Switch>
+              {!isLoggedIn ? (
+                <>
+                  <Route path="/" exact component={Listings} />
+                  <Route path="/profile" component={profile} />
+                  <Route path="/listing" component={Filter} />
+                  <Route path="/listings" exact component={Listings} />
+                  <Route path="/create-listing" component={CreateListingPage} />
+                  <Route path="/discussion-board" exact component={DiscussionBoard} />
+                  <Route path="/discussion-board/new" exact component={UpsertPost} />
+                  <Route path="/discussion-board/edit/:id" exact component={UpsertPost} />
+                  <Route path="/discussion-board/:id" exact component={Post} />
+                  <Route path="/list/:id" component={Details} />
+                  <Route path="/search-results" exact component={SearchResults} />
+                </>
+              ) : (
+                <>
+                  <Route path="/" exact component={Listings} />
+                  <Route path="/list/:id" component={Details} />
+                  <Route path="/login" component={Login} />
+                  <Route path="/registration" component={Registration} />
+                </>
+              )}
+            </Switch>
+          </Layout>
+        </div>
+      </Router>
     </StateProvider>
   );
 };
