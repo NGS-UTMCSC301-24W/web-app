@@ -16,7 +16,6 @@ const Listings = () => {
             try {
                 const response = await fetch(`${constants.API_BASE_URL}/listings/all`);
                 const data = await response.json();
-                console.log('-----------------', data);
                 setListings(data);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -32,25 +31,25 @@ const Listings = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
-        <div className="container mt-4">
-            <Carousel>
-                <Carousel.Item>
-                <img
-                    className="d-block w-100"
-                    src="https://mtarch.com/wp-content/uploads/2022/05/21-W.G-DAVIS.jpg"
-                    alt="First slide"
-                />
-                </Carousel.Item>
-                <Carousel.Item>
-                <img
-                    className="d-block w-100"
-                    src="https://philosophy.utoronto.ca/wp-content/uploads/UTM-Library.jpg"
-                    alt="Second slide"
-                />
-                </Carousel.Item>
+        <div>
+          <Carousel>
+            <Carousel.Item>
+            <img
+                className="d-block w-100"
+                src="https://mtarch.com/wp-content/uploads/2022/05/21-W.G-DAVIS.jpg"
+                alt="First slide"
+            />
+            </Carousel.Item>
+            <Carousel.Item>
+            <img
+                className="d-block w-100"
+                src="https://philosophy.utoronto.ca/wp-content/uploads/UTM-Library.jpg"
+                alt="Second slide"
+            />
+            </Carousel.Item>
           </Carousel>
 
-          <div className="row" >
+          <div className="row" style={{marginLeft:'1rem'}}>
             {currentListings.map((listing) => (
               <div key={listing.id} className="col-md-6 mb-3">
                 <div className="card card-container" >

@@ -15,6 +15,7 @@ import Post from './components/DiscussionBoard/PostDetails.js';
 import Layout from './layout';
 import SearchResults from './components/Search/SearchResults';
 import StateProvider from './StateProvider/StateProvider';
+import profile from './components/profile';
 
 import './bs/css/bootstrap.min.css';
 import './bs/css/custom.css';
@@ -40,6 +41,7 @@ const App = () => {
             <Route path="/discussion-board/:id" exact component={Post}/>
             <Route path="/list/:id" component={Details}/>
             <Route path="/search-results" exact component={SearchResults} />
+            <Route path="/profile" exact component={profile} />
           </Switch>
         </Layout>
         

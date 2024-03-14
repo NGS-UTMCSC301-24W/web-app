@@ -76,17 +76,37 @@ async function logoutUserController(req, res) {
 
   try {
     await req.session.destroy();
-    console.log('User: ${username} has logged out')
-} catch (err) {
+    console.log(`User: ${username} has logged out successfully`);
+    res.status(200).send();
+  } catch (err) {
     console.error('Error logging out:', err);
-    return next(new Error('Error logging out'));
+    res.status(500).json({ error: 'Error logging out' });
+  }
 }
 
-res.status(200).send();
+async function getUser(req, res) {
+  try {
+    const { username } = req.params; 
+
+    // Call the getUserByUsername function from the userService
+    const user = await userService.getUserByUsername(username);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+      console.log('-----------')
+    }
+
+    // If the user is found, send it in the response
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error in getUserByUsername controller:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 }
   
 module.exports = {
   registerUserController,
   loginUserController,
   logoutUserController,
+  getUser,
 };

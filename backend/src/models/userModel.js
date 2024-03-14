@@ -39,7 +39,11 @@ async function createUser({
 
 
 async function getUserByUsername(username) {
-    return prisma.User.findUnique({ where: { username }, })
+    return prisma.User.findUnique({ where: { username } })
+      .catch(e => {
+        console.error(e);
+        return false;
+      })
 }
 
 async function getUserByEmail(email) {
