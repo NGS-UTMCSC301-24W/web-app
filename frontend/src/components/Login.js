@@ -18,9 +18,12 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Add logic to handle login (e.g., send data to backend for authentication)
     const userData = { ...formData };
 
+    console.log( userData)
     try {
+      // Send POST request to backend
       const response = await fetch('http://localhost:3001/users/login', {
         method: 'POST',
         headers: {
@@ -29,35 +32,30 @@ const Login = () => {
         body: JSON.stringify(userData),
         credentials: 'include',
       });
-
+      console.log("---", userData)
       if (response.ok) {
-        updateState({
-          isLoggedIn: true,
-        });
-        localStorage.setItem('isLoggedIn', true);
-        console.log('User logged in successfully');
+        updateState({ isLoggedIn: true });
+        //console.log(sharedState.isLoggedIn);
+        console.log('User Login successfully');
         history.push('/');
       } else {
         console.error('Failed to login user');
         console.error('Status Code:', response.status);
-        // Add logic for handling login failure (e.g., display error message)
       }
     } catch (error) {
       console.error('Error:', error);
-      // Add logic for handling unexpected errors (e.g., display error message)
     }
-
     // Reset form fields after submission
     setFormData({ username: '', password: '' });
   };
 
   useEffect(() => {
-    // Any logic you want to execute when isLoggedIn changes
+    console.log(sharedState.isLoggedIn);
   }, [sharedState.isLoggedIn]);
 
   return (
     <div className='container'>
-      <h2 style={{ marginTop: '2rem', marginBottom: '2rem' }}>Login Page</h2>
+      <h2 style={{marginTop: '2rem', marginBottom: '2rem' }}>Login Page</h2>
       <form onSubmit={handleSubmit}>
         <div className='col-md-6'>
           <div className="form-group mb-3">
