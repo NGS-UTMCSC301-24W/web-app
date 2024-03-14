@@ -51,7 +51,6 @@ const DropdownSelect = () => {
           <option value="/profile">Profile</option>
           <option value="/create-listing">Create Listing</option>
           <option value="/listing">Filter</option>
-          <option value="/listings">Listings</option>
           <option value="/discussion-board">Discussion Board</option>
         </>
       ) : (

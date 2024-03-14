@@ -21,7 +21,6 @@ const Login = () => {
     // Add logic to handle login (e.g., send data to backend for authentication)
     const userData = { ...formData };
 
-    console.log( userData)
     try {
       // Send POST request to backend
       const response = await fetch('http://localhost:3001/users/login', {
@@ -32,10 +31,8 @@ const Login = () => {
         body: JSON.stringify(userData),
         credentials: 'include',
       });
-      console.log("---", userData)
       if (response.ok) {
-        updateState({ isLoggedIn: true });
-        //console.log(sharedState.isLoggedIn);
+        updateState({ isLoggedIn: true, username: formData.username });
         console.log('User Login successfully');
         history.push('/');
       } else {

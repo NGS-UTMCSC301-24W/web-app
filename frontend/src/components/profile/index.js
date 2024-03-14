@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react';
 import constants from "../../constants.json";
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import { Card, Col } from 'react-bootstrap';
+import useSharedState from '../../StateProvider/useSharedState';
 
 const UserProfile = () => {
   const [userData, setUserData] = useState(null);
+  const { sharedState } = useSharedState();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${constants.API_BASE_URL}/users/test123`);
+        const response = await fetch(`${constants.API_BASE_URL}/users/${sharedState.username}`);
         const data = await response.json();
-        console.log('--------', data);
 
         // Update the state with the fetched user data
         setUserData(data);
