@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import useSharedState from '../StateProvider/useSharedState';
+import './LogoutButton.css'; // Import CSS file for styling
 
 const LogoutButton = () => {
   const history = useHistory();
@@ -25,7 +26,8 @@ const LogoutButton = () => {
   };
 
   return (
-    <button onClick={handleLogout}>Logout</button>
+    <button className="logout-button" onClick={handleLogout}>Logout</button>
+    
   );
 };
 

@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap'; 
 
+import useSharedState from '../../StateProvider/useSharedState';
 import constants from "../../constants.json";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
+
 
 const Listings = () => {
     const [listings, setListings] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const listingsPerPage = 4;
+    const { sharedState } = useSharedState();
 
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -68,8 +72,8 @@ const Listings = () => {
                       {listing.roomCount ? ` ${listing.roomCount.bedrooms} Bedrooms, ${listing.roomCount.bathrooms} Bathrooms` : ' Room details not available'}
                     </p>
                     <p className="card-text"><b>Price:</b> {listing.price}</p>
-                    <Link to={`/list/${listing.id}`} className="btn btn-primary">
-                      View Details
+                    <Link to={sharedState.isLoggedIn ? `/list/${listing.id}` : '/login'} className="btn btn-primary">
+                      {sharedState.isLoggedIn ? 'View Details' : 'Login to View Details'}
                     </Link>
                   </div>
                 </div>

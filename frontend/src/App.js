@@ -16,6 +16,7 @@ import Layout from './layout';
 import SearchResults from './components/Search/SearchResults';
 import StateProvider from './StateProvider/StateProvider';
 import profile from './components/profile';
+import useSharedState from './StateProvider/useSharedState';
 
 import './bs/css/bootstrap.min.css';
 import './bs/css/custom.css';
@@ -25,29 +26,49 @@ const App = () => {
 
   return (
     <StateProvider>
-      <Router>
-      <div>
-        <Layout>
-          <Switch>
-            {<Route path="/" exact component={Listings} /> }
-            <Route path="/login" component={Login} />
-            <Route path="/Registration" component={Registration} />
-            <Route path="/listing" component={Filter}/>
-            <Route path="/listings" exact component={Listings} />
-            <Route path="/create-listing" component={CreateListingPage}/>
-            <Route path="/discussion-board" exact component={DiscussionBoard}/>
-            <Route path="/discussion-board/new" exact component={UpsertPost}/>
-            <Route path="/discussion-board/edit/:id" exact component={UpsertPost}/>
-            <Route path="/discussion-board/:id" exact component={Post}/>
-            <Route path="/list/:id" component={Details}/>
-            <Route path="/search-results" exact component={SearchResults} />
-            <Route path="/profile" exact component={profile} />
-          </Switch>
-        </Layout>
-        
-      </div>
-    </Router >
+        <Main />
     </StateProvider>
+  );
+};
+
+const Main = () => {
+  const { sharedState } = useSharedState();
+
+  return (
+    <>
+      <Router>
+        <div>
+          <Layout>
+            <Switch>
+              {sharedState.isLoggedIn ? 
+              <>
+                <Route path="/" exact component={Listings} /> 
+                <Route path="/listing" component={Filter}/>
+                <Route path="/listings" exact component={Listings} />
+                <Route path="/create-listing" component={CreateListingPage}/>
+                <Route path="/discussion-board" exact component={DiscussionBoard}/>
+                <Route path="/discussion-board/new" exact component={UpsertPost}/>
+                <Route path="/discussion-board/edit/:id" exact component={UpsertPost}/>
+                <Route path="/discussion-board/:id" exact component={Post}/>
+                <Route path="/list/:id" component={Details}/>
+                <Route path="/search-results" exact component={SearchResults} />
+                <Route path="/profile" exact component={profile} />
+              </> : 
+              <>
+                <Route path="/" exact component={Listings} /> 
+                <Route path="/login" component={Login} />
+                <Route path="/Registration" component={Registration} />
+                <Route path="/listings" exact component={Listings} />
+                <Route path="/discussion-board/:id" exact component={Login}/>
+              </>
+            }
+              
+            </Switch>
+          </Layout>
+          
+        </div>
+      </Router >
+    </>
   );
 };
 
