@@ -71,6 +71,7 @@ async function loginUserController(req, res) {
   }
 }
 
+
 async function logoutUserController(req, res) {
   const { username } = req.body;
 
@@ -83,6 +84,7 @@ async function logoutUserController(req, res) {
     res.status(500).json({ error: 'Error logging out' });
   }
 }
+
 
 async function getUser(req, res) {
   try {

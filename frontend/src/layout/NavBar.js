@@ -49,7 +49,9 @@ const DropdownSelect = () => {
       {sharedState.isLoggedIn ? (
         <>
           <option value="/profile">Profile</option>
-          <option value="/create-listing">Create Listing</option>
+          {sharedState.role !== 'user' && (
+            <option value="/create-listing">Create Listing</option>
+          ) }
           <option value="/listing">Filter</option>
           <option value="/discussion-board">Discussion Board</option>
         </>

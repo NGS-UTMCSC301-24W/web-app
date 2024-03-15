@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import useSharedState from '../StateProvider/useSharedState';
+import constants from '../constants'; // Assuming you have constants defined somewhere
 
 const Login = () => {
   const history = useHistory();
@@ -8,6 +9,7 @@ const Login = () => {
     username: '',
     password: '',
   });
+  const [userData, setUserData] = useState(null);
 
   const { sharedState, updateState } = useSharedState();
 
@@ -18,8 +20,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add logic to handle login (e.g., send data to backend for authentication)
-    const userData = { ...formData };
 
     try {
       // Send POST request to backend
@@ -28,11 +28,17 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(formData),
         credentials: 'include',
       });
       if (response.ok) {
-        updateState({ isLoggedIn: true, username: formData.username });
+        const userDataResponse = await fetch(`${constants.API_BASE_URL}/users/${formData.username}`);
+        const userData = await userDataResponse.json();
+        
+        // Update the state with the fetched user data
+        setUserData(userData);
+
+        updateState({ isLoggedIn: true, username: formData.username, role: userData.role });
         console.log('User Login successfully');
         history.push('/');
       } else {

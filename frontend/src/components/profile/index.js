@@ -34,7 +34,7 @@ const UserProfile = () => {
               <Card.Text className="mb-2 text-muted">Full Name: {userData.fullName}</Card.Text>
               <Card.Text className="mb-2 text-muted">Role: {userData.role}</Card.Text>
               <Card.Text className="mb-2 text-muted">Phone Number: {userData.phoneNumber}</Card.Text>
-              <Card.Text className="mb-2 text-muted">Birthday: {userData.birthday}</Card.Text>
+              <Card.Text className="mb-2 text-muted">Birthday: {userData.birthday ? userData.birthday.substring(0, 10) : ""}</Card.Text>
               <Card.Text className="mb-2 text-muted">Gender: {userData.gender}</Card.Text>
               <Card.Text className="mb-2 text-muted">Program of Study: {userData.schoolProgram}</Card.Text>
               <Card.Text className="mb-2 text-muted">Year of Study: {userData.yearOfStudy}</Card.Text>

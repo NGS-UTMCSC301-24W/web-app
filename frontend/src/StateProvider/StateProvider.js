@@ -4,7 +4,7 @@ import StateContext from './StateContext';
 const StateProvider = ({ children }) => {
     const [sharedState, setSharedState] = useState(() => {
         const storedState = localStorage.getItem('sharedState');
-        return storedState ? JSON.parse(storedState) : { isLoggedIn: false, username: null };
+        return storedState ? JSON.parse(storedState) : { isLoggedIn: false, username: null, role: null };
     });
 
     // Function to update state
