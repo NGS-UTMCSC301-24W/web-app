@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -23,7 +23,6 @@ import './bs/css/custom.css';
 import './bs/js/bootstrap.bundle.min.js';
 
 const App = () => {
-
   return (
     <StateProvider>
         <Main />
@@ -31,44 +30,53 @@ const App = () => {
   );
 };
 
-const Main = () => {
+const PrivateRoute = ({ component: Component, allowedRoles, ...rest }) => {
   const { sharedState } = useSharedState();
-
   return (
-    <>
-      <Router>
-        <div>
-          <Layout>
-            <Switch>
-              {sharedState.isLoggedIn ? 
-              <>
-                <Route path="/" exact component={Listings} /> 
-                <Route path="/listing" component={Filter}/>
-                <Route path="/listings" exact component={Listings} />
-                <Route path="/create-listing" component={CreateListingPage}/>
-                <Route path="/discussion-board" exact component={DiscussionBoard}/>
-                <Route path="/discussion-board/new" exact component={UpsertPost}/>
-                <Route path="/discussion-board/edit/:id" exact component={UpsertPost}/>
-                <Route path="/discussion-board/:id" exact component={Post}/>
-                <Route path="/list/:id" component={Details}/>
-                <Route path="/search-results" exact component={SearchResults} />
-                <Route path="/profile" exact component={profile} />
-              </> : 
-              <>
-                <Route path="/" exact component={Listings} /> 
-                <Route path="/login" component={Login} />
-                <Route path="/Registration" component={Registration} />
-                <Route path="/listings" exact component={Listings} />
-                <Route path="/discussion-board/:id" exact component={Login}/>
-              </>
-            }
-              
-            </Switch>
-          </Layout>
-          
-        </div>
-      </Router >
-    </>
+    <Route {...rest} render={(props) => (
+      sharedState.isLoggedIn ? (
+        !allowedRoles || allowedRoles.includes(sharedState.role)
+          ? <Component {...props} />
+          : <Redirect to="/" /> // Redirect user to home page or another appropriate page
+      ) : (
+        <Redirect to="/login" />
+      )
+    )} />
+  );
+};
+
+const AuthRoute = ({ component: Component, ...rest }) => {
+  const { sharedState } = useSharedState();
+  return (
+    <Route {...rest} render={(props) => (
+      sharedState.isLoggedIn
+        ? <Redirect to="/" /> // Redirect logged-in users to home page
+        : <Component {...props} />
+    )} />
+  );
+};
+
+const Main = () => {
+  return (
+    <Router>
+      <Layout>
+        <Switch>
+          <PrivateRoute path="/create-listing" component={CreateListingPage} allowedRoles={['landlord']} />
+          <Route path="/" exact component={Listings} />
+          <PrivateRoute path="/listing" component={Filter} />
+          <PrivateRoute path="/listings" exact component={Listings} />
+          <PrivateRoute path="/discussion-board" exact component={DiscussionBoard} />
+          <PrivateRoute path="/discussion-board/new" exact component={UpsertPost} />
+          <PrivateRoute path="/discussion-board/edit/:id" exact component={UpsertPost} />
+          <PrivateRoute path="/discussion-board/:id" exact component={Post} />
+          <PrivateRoute path="/list/:id" component={Details} />
+          <PrivateRoute path="/search-results" exact component={SearchResults} />
+          <PrivateRoute path="/profile" exact component={profile} />
+          <AuthRoute path="/login" component={Login} />
+          <AuthRoute path="/registration" component={Registration} />
+        </Switch>
+      </Layout>
+    </Router>
   );
 };
 
