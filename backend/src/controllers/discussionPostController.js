@@ -11,7 +11,7 @@ async function upsertDiscussionPost(req, res) {
     authorId: Joi.string().required(),
   }).validate({
     ...req.body,
-    authorType: "OWNER", // TODO: Change after user role feat is implemented
+    authorType: req.session.user.role === "user" ? "RENTER" : "OWNER",
     authorId: req.session.user.id,
   }, { abortEarly: false });
 
@@ -35,7 +35,7 @@ async function getDiscussionPost(req, res) {
     authorType: Joi.string().allow("OWNER", "RENTER").required(),
   }).validate({
     id: req.query.id,
-    authorType: "OWNER", // TODO: Change after user role feat is implemented
+    authorType: req.session.user.role === "user" ? "RENTER" : "OWNER",
   }, { abortEarly: false });
 
   if (validation.error) {
@@ -60,7 +60,7 @@ async function getDiscussionPosts(req, res) {
   const result = await service.getPosts({
     parentId: req.query.parentId,
     page: req.query.page,
-    type: "OWNER", // TODO: Change after user role feat is implemented
+    type: req.session.user.role === "user" ? "RENTER" : "OWNER",
   }).then(posts => posts.map(post => ({
     ...post,
     editable: post.authorId === req.session.user.id,

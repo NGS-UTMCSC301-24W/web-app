@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import constants from "../../constants.json";
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import { Card, Col } from 'react-bootstrap';
 import useSharedState from '../../StateProvider/useSharedState';
 
-const UserProfile = () => {
+const UserProfile = (router) => {
   const [userData, setUserData] = useState(null);
   const { sharedState } = useSharedState();
+  const username = useMemo(() => {
+    if (router.match.params.username) {
+      return router.match.params.username;
+    }
+    return sharedState.username;
+  }, [sharedState, router]);
+    
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${constants.API_BASE_URL}/users/${sharedState.username}`);
+        const response = await fetch(`${constants.API_BASE_URL}/users/${username}`);
         const data = await response.json();
 
         // Update the state with the fetched user data
