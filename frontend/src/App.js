@@ -71,7 +71,7 @@ const Main = () => {
           <PrivateRoute path="/discussion-board/:id" exact component={Post} />
           <PrivateRoute path="/list/:id" component={Details} />
           <PrivateRoute path="/search-results" exact component={SearchResults} />
-          <PrivateRoute path="/profile" exact component={profile} />
+          <PrivateRoute path="/profile/:username?" exact component={profile} />
           <AuthRoute path="/login" component={Login} />
           <AuthRoute path="/registration" component={Registration} />
         </Switch>
