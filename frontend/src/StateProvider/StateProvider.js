@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import constants from "../constants.json";
 import StateContext from './StateContext';
 
 const StateProvider = ({ children }) => {
     const [sharedState, setSharedState] = useState(() => {
-        const storedState = localStorage.getItem('sharedState');
-        return storedState ? JSON.parse(storedState) : { isLoggedIn: false, username: null, role: null };
+        let storedState = localStorage.getItem('sharedState');
+        storedState = storedState ? JSON.parse(storedState) : { isLoggedIn: false, username: null, role: null };
+        if (storedState.isLoggedIn) {
+            fetch(`${constants.API_BASE_URL}/users/me`, { credentials: 'include' }).then(async (response) => {
+                if (!response.ok) {
+                    updateState({ isLoggedIn: false, username: null, role: null });
+                }
+            }).catch((error) => {
+                console.error('Error fetching user data:', error);
+                updateState({ isLoggedIn: false, username: null, role: null });
+            });
+        }
+        return storedState;
     });
 
     // Function to update state

@@ -105,10 +105,30 @@ async function getUser(req, res) {
     res.status(500).json({ error: 'Internal server error' });
   }
 }
+
+async function getSessionUser(req, res) {
+  try {
+    if (!req.session.user) {
+      return res.status(401).json({ error: 'User is not logged in' });
+    }
+
+    const user = await userService.getUserByUsername(req.session.user.username);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error in getSessionUser controller:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
   
 module.exports = {
   registerUserController,
   loginUserController,
   logoutUserController,
   getUser,
+  getSessionUser,
 };
