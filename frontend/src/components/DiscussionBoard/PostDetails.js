@@ -115,7 +115,9 @@ const Comment = ({ id, author, content, editable, onCommentDelete }) => {
     <div className="card w-100" style={{ width: "18rem" }}>
       <div className="card-body">
         <p className="card-text">
-          <b>{author}:</b>
+          <Link to={`/profile/${author}`}>
+            <b>{author}:</b>
+          </Link>
           <Markdown remarkPlugins={[remarkGfm]}>{content}</Markdown>
         </p>
         {editable && (
