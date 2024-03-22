@@ -62,7 +62,7 @@ async function loginUserController(req, res) {
     }
 
     // Set user data in the session
-    req.session.user = { id: user.id, username: user.username };
+    req.session.user = { id: user.id, username: user.username, role: user.role };
 
     res.status(200).json({ message: 'Login successful', user });
   } catch (error) {
