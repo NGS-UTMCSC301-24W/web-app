@@ -26,7 +26,7 @@ const SearchPage = ({ location }) => {
 
     useEffect(() => {
         fetchData();
-    }, [filter]); // Refetch data when filter changes
+    }, [filter, results]);
 
     const fetchData = async () => {
         try {
@@ -37,13 +37,8 @@ const SearchPage = ({ location }) => {
             let url = `${constants.API_BASE_URL}/listings/filter?${filteredParameters}`;
             const response = await fetch(url);
             const data = await response.json();
-            if (data.length === 0) {
-                // Clear the listings page by setting an empty array
-                setFilteredResults([]);
-            } else {
-                setFilteredResults(data);
-            }
-
+            console.log(data);
+            setFilteredResults(data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -60,7 +55,11 @@ const SearchPage = ({ location }) => {
 
     const indexOfLastListing = currentPage * listingsPerPage;
     const indexOfFirstListing = indexOfLastListing - listingsPerPage;
-    const currentListings = filteredResults.slice(indexOfFirstListing, indexOfLastListing);
+    const currentListings = results.slice(indexOfFirstListing, indexOfLastListing);
+
+    const matchingListings = currentListings.filter(listing => {
+        return filteredResults.some(filteredListing => filteredListing.id === listing.id);
+    });
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -158,7 +157,7 @@ const SearchPage = ({ location }) => {
             <h2 className="text-center mb-4">Search Results:</h2>
 
             <div className="row" style={{marginLeft: '1rem'}}>
-                {currentListings.map((results) => (
+                {matchingListings.map((results) => (
                     <div key={results.id} className="col-md-6 mb-3">
                         <div className="card card-container">
                             {results.images && results.images.length > 0 && (
