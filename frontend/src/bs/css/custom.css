@@ -1,0 +1,47 @@
+:root{
+    --heading-font: 'Playfair Display', serif;
+    --sub-heading-font: 'Poppins', sans-serif;
+    --utm-main-blue: #002a5c;
+    --utm-secondary-blue: #337ab7;
+    --utm-dark-blue: #001228;
+}
+
+h1, h2, h3{
+    font-family: var(--heading-font);
+}
+
+h4, h5, h6, p{
+    font-family: var(--sub-main-font);
+}
+
+a {
+    text-decoration: none;
+}
+
+.bg-primary{
+    background-color: var(--utm-main-blue) !important;
+}
+
+.bg-secondary {
+    background-color: var(--utm-secondary-blue) !important;
+}
+
+.bg-utm-dark-blue{
+    background-color: var(--utm-dark-blue);
+}
+
+.btn-primary{
+    color: var(--bs-white);
+    background-color: var(--utm-secondary-blue);
+    border-color: var(--utm-secondary-blue);
+    font-family: var(--sub-heading-font);
+}
+
+.btn-primary:hover{
+    background-color: var(--utm-dark-blue);
+    border-color: var(--utm-dark-blue);
+}
+
+footer{
+    color: var(--bs-white);
+}

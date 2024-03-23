@@ -1,0 +1,25 @@
+  .container {
+    margin-top: 2rem;
+  }
+
+
+  .listing-item {
+    display: flex;
+    flex-direction: column;
+    width: 80vw; /* Set your desired fixed width */
+    margin: 10px; /* Add margin or adjust as needed */
+  }
+  
+  .carousel {
+    width: 100%; 
+  }
+  
+  .listing-container {
+    width: 100%; 
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }

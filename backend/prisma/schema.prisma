@@ -6,3 +6,66 @@ datasource db {
   provider = "mongodb"
   url      = "mongodb+srv://uhome:jIUYvEAfe0Ei5LBK@uhomecluster.n5eb67d.mongodb.net/db?authSource=admin&retryWrites=true&w=majority"
 }
+
+model RentalListing {
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  title          String
+  description    String
+  address        String
+  price          Int
+  images         String[]
+  location       GeoJson
+  roomCount      RoomCount
+  structuralType StructuralType
+  leaser         Leaser
+}
+
+enum StructuralType {
+  HOUSE
+  BASEMENT
+  APARTMENT
+  CONDO
+  ROOM
+}
+
+enum Leaser {
+  OWNER
+  ROOMMATE
+}
+
+type GeoJson {
+  type        String  @default("Point")
+  coordinates Float[]
+}
+
+type RoomCount {
+  bedrooms  Int
+  bathrooms Int
+}
+
+model User {
+  id              String           @id @default(auto()) @map("_id") @db.ObjectId
+  username        String           @unique
+  fullName        String
+  password        String
+  role            String
+  email           String           @unique
+  phoneNumber     String
+  birthday        DateTime
+  gender          String
+  schoolProgram   String
+  yearOfStudy     Int
+  discussionPosts DiscussionPost[]
+}
+
+model DiscussionPost {
+  id         String           @id @default(auto()) @map("_id") @db.ObjectId
+  title      String
+  content    String
+  authorType String
+  author     User             @relation(fields: [authorId], references: [id])
+  authorId   String           @db.ObjectId
+  parent     DiscussionPost?  @relation("MainPost", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  parentId   String?          @db.ObjectId
+  comments   DiscussionPost[] @relation("MainPost")
+}
