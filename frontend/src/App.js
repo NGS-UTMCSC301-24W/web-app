@@ -13,7 +13,6 @@ import DiscussionBoard from './components/DiscussionBoard';
 import UpsertPost from './components/DiscussionBoard/UpsertPost.js';
 import Post from './components/DiscussionBoard/PostDetails.js';
 import Layout from './layout';
-import SearchResults from './components/Search/SearchResults';
 import StateProvider from './StateProvider/StateProvider';
 import profile from './components/profile';
 import useSharedState from './StateProvider/useSharedState';
@@ -21,6 +20,7 @@ import useSharedState from './StateProvider/useSharedState';
 import './bs/css/bootstrap.min.css';
 import './bs/css/custom.css';
 import './bs/js/bootstrap.bundle.min.js';
+import SearchPage from "./components/Search/SearchPage";
 
 const App = () => {
   return (
@@ -70,7 +70,7 @@ const Main = () => {
           <PrivateRoute path="/discussion-board/edit/:id" exact component={UpsertPost} />
           <PrivateRoute path="/discussion-board/:id" exact component={Post} />
           <PrivateRoute path="/list/:id" component={Details} />
-          <PrivateRoute path="/search-results" exact component={SearchResults} />
+          <PrivateRoute path="/search-results" exact component={SearchPage} />
           <PrivateRoute path="/profile/:username?" exact component={profile} />
           <AuthRoute path="/login" component={Login} />
           <AuthRoute path="/registration" component={Registration} />
