@@ -8,22 +8,19 @@ function filterListings(listings, filter) {
     const defaultMinPrice = 0;
     const defaultMaxPrice = Number.MAX_SAFE_INTEGER;
 
-    // Filter by price range
-    const [min, max] = priceRange ? priceRange.split('-').map(Number) : [defaultMinPrice, defaultMaxPrice];
-    if (
-      (listing.price < min && !isNaN(min)) ||
-      (listing.price > max && !isNaN(max))
-    ) {
-      return false;
-    }
-
     // Filter by bedrooms
-    if (bedrooms !== "" && listing.roomCount.bedrooms !== parseInt(bedrooms)) {
+    if (bedrooms && listing.roomCount.bedrooms !== parseInt(bedrooms)) {
       return false;
     }
 
     // Filter by bathrooms
-    if (bathrooms !== "" && listing.roomCount.bathrooms !== parseInt(bathrooms)) {
+    if (bathrooms && listing.roomCount.bathrooms !== parseInt(bathrooms)) {
+      return false;
+    }
+
+    // Filter by price range
+    const [min, max] = priceRange ? priceRange.split('-').map(Number) : [defaultMinPrice, defaultMaxPrice];
+    if ((listing.price < min && !isNaN(min)) || (listing.price > max && !isNaN(max))) {
       return false;
     }
 
@@ -37,7 +34,6 @@ function filterListings(listings, filter) {
       return false;
     }
 
-    // Add more conditions as needed
     return true;
   });
 }
