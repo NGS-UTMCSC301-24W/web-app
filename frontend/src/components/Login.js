@@ -38,7 +38,7 @@ const Login = () => {
         // Update the state with the fetched user data
         setUserData(userData);
 
-        updateState({ isLoggedIn: true, username: formData.username, role: userData.role });
+        updateState({ isLoggedIn: true, username: formData.username, role: userData.role, userId: userData.id });
         console.log('User Login successfully');
         history.push('/');
       } else {

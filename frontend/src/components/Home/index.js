@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Carousel } from 'react-bootstrap'; 
+import { Carousel } from 'react-bootstrap';
 
 import useSharedState from '../../StateProvider/useSharedState';
 import constants from "../../constants.json";
@@ -191,9 +191,12 @@ const Listings = () => {
                                 </p>
                                 <p className="card-text"><b>Price:</b> {listing.price}</p>
                                 <Link to={sharedState.isLoggedIn ? `/list/${listing.id}` : '/login'}
-                                      className="btn btn-primary">
+                                    className="btn btn-primary card-link">
                                     {sharedState.isLoggedIn ? 'View Details' : 'Login to View Details'}
                                 </Link>
+                                {sharedState.userId === listing.creatorId && (
+                                    <button className="btn btn-primary card-link" onClick={() => deleteListing}>Delete</button>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -203,9 +206,9 @@ const Listings = () => {
             <div className="pagination d-flex justify-content-center mt-4">
                 {Array.from({length: Math.ceil(listings.length / listingsPerPage)}, (_, index) => (
                     <span key={index} onClick={() => paginate(index + 1)}
-                          className={`mx-2 ${currentPage === index + 1 ? 'active btn-primary' : 'btn-light'}`}>
-                    {index + 1}
-                </span>
+                        className={`mx-2 ${currentPage === index + 1 ? 'active btn-primary' : 'btn-light'}`}>
+                        {index + 1}
+                    </span>
                 ))}
             </div>
         </div>
