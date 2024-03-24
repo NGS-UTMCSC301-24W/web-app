@@ -14,10 +14,11 @@ model RentalListing {
   address        String
   price          Int
   images         String[]
-  location       GeoJson
   roomCount      RoomCount
   structuralType StructuralType
   leaser         Leaser
+  creator        User           @relation(fields: [creatorId], references: [id])
+  creatorId      String         @db.ObjectId
 }
 
 enum StructuralType {
@@ -31,11 +32,6 @@ enum StructuralType {
 enum Leaser {
   OWNER
   ROOMMATE
-}
-
-type GeoJson {
-  type        String  @default("Point")
-  coordinates Float[]
 }
 
 type RoomCount {
@@ -56,6 +52,7 @@ model User {
   schoolProgram   String
   yearOfStudy     Int
   discussionPosts DiscussionPost[]
+  RentalListing   RentalListing[]
 }
 
 model DiscussionPost {

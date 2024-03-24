@@ -6,7 +6,6 @@
   .listing-item {
     display: flex;
     flex-direction: column;
-    width: 80vw; /* Set your desired fixed width */
     margin: 10px; /* Add margin or adjust as needed */
   }
   

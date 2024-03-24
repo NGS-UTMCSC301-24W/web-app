@@ -12,8 +12,6 @@ async function createListing(req, res) {
     address: Joi.string().required(),
     price: Joi.number().min(0).required(),
     images: Joi.array().items(Joi.string()).required(),
-    latitude: Joi.number().required(),
-    longitude: Joi.number().required(),
     bedrooms: Joi.number().min(0).required(),
     bathrooms: Joi.number().min(0).required(),
     structuralType: Joi.string().valid("HOUSE", "BASEMENT", "APARTMENT", "CONDO", "ROOM").required(),
@@ -24,10 +22,9 @@ async function createListing(req, res) {
     return res.status(400).json(validation.error.details.map(detail => detail.message).join(", "));
   }
 
-  const { latitude, longitude, bedrooms, bathrooms, ...rest } = validation.value;
+  const { bedrooms, bathrooms, ...rest } = validation.value;
   const newListing = {
     ...rest,
-    location: { coordinates: [longitude, latitude] },
     roomCount: { bedrooms, bathrooms },
   };
 
