@@ -1,3 +1,17 @@
+@font-face {
+  font-family: 'TradeGothic Bold';
+  src: local('TradeGothic Bold'), url('../fonts/TradeGothic Bold.ttf') format('ttf');
+}
+
+.brand-text {
+  font-family: 'TradeGothic Bold';
+  font-size: 50px;
+}
+
+.brand-logo {
+  height: auto;
+}
+
 .auth-links {
     display: flex;
     justify-content: flex-end;

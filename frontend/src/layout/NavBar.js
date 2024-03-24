@@ -6,11 +6,21 @@ import useSharedState from '../StateProvider/useSharedState';
 import SearchForm from '../components/Search/Search';
 import LogoutButton from '../components/Logout';
 
+import logo from '../assets/logo.png';
+
+
 import './NavBar.css';
 
 const Brand = () => (
-  <Link className="navbar-brand p-4" to="/">
-    Uhome
+  <Link className="navbar-brand" to="/">
+    <img src={logo} alt="Logo" className="brand-logo"/>
+    <span className="brand-text">UHome</span>
+  </Link>
+);
+
+const Logo = () => (
+  <Link className="navbar-brand" to="/">
+    <img src={logo} alt="Logo" className="brand-logo"/>
   </Link>
 );
 
