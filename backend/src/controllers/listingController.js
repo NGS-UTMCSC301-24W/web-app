@@ -38,6 +38,29 @@ async function createListing(req, res) {
   return res.status(201).json(result);
 }
 
+async function deleteListing(req, res) {
+  const validation = Joi.object({
+    id: Joi.string().required(),
+    creatorId: Joi.string().required(),
+  }).validate({
+    ...req.body,
+    creatorId: req.session.user.id,
+  }, { abortEarly: false });
+  
+  if (validation.error) {
+    return res.status(400).json(validation.error.details.map(detail => detail.message).join(", "));
+  }
+
+  const listingService = new ListingService(req.app.locals.prisma);
+  const result = await listingService.deleteListing(validation.value);
+
+  if (!result) {
+    return res.status(404).json(`Unable to delete listing.`);
+  }
+
+  return res.status(200).json(result);
+}
+
 async function getUploadImageUrl(req, res) {
   // Never store access key and secret key in code. I'll do it here for simplicity and we don't have a server to store it.
   const client = new S3Client({
@@ -108,6 +131,7 @@ async function getListing(req, res) {
 
 module.exports = {
   createListing,
+  deleteListing,
   getUploadImageUrl,
   getAllListings,
   getFilteredListings,

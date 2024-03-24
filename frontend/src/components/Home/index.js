@@ -64,6 +64,28 @@ const Listings = () => {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    const deleteListing = async (id) => {
+        try {
+            const response = await fetch(`${constants.API_BASE_URL}/listings/delete`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id }),
+            });
+
+            if (response.status === 200) {
+                const updatedListings = listings.filter(listing => listing.id !== id);
+                setListings(updatedListings);
+            } else {
+                console.error('Failed to delete listing');
+            }
+        } catch (error) {
+            console.error('Error deleting listing:', error);
+        }
+    };
+
     return (
         <div>
             <Carousel>
@@ -171,7 +193,7 @@ const Listings = () => {
                 )}
             </div>
 
-            <div className="row" style={{marginLeft: '1rem'}}>
+            <div className="row" style={{ marginLeft: '1rem' }}>
                 {currentListings.map((listing) => (
                     <div key={listing.id} className="col-md-6 mb-3">
                         <div className="card card-container">
@@ -195,7 +217,7 @@ const Listings = () => {
                                     {sharedState.isLoggedIn ? 'View Details' : 'Login to View Details'}
                                 </Link>
                                 {sharedState.userId === listing.creatorId && (
-                                    <button className="btn btn-primary card-link" onClick={() => deleteListing}>Delete</button>
+                                    <button className="btn btn-primary card-link" onClick={() => deleteListing(listing.id)}>Delete</button>
                                 )}
                             </div>
                         </div>
@@ -204,7 +226,7 @@ const Listings = () => {
             </div>
 
             <div className="pagination d-flex justify-content-center mt-4">
-                {Array.from({length: Math.ceil(listings.length / listingsPerPage)}, (_, index) => (
+                {Array.from({ length: Math.ceil(listings.length / listingsPerPage) }, (_, index) => (
                     <span key={index} onClick={() => paginate(index + 1)}
                         className={`mx-2 ${currentPage === index + 1 ? 'active btn-primary' : 'btn-light'}`}>
                         {index + 1}
