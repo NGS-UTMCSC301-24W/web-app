@@ -4,7 +4,8 @@
   --utm-main-blue: #002a5c;
   --utm-secondary-blue: #337ab7;
   --utm-dark-blue: #001228;
-=======
+}
+
 @font-face {
   font-family: 'TradeGothic Bold';
   src: local('TradeGothic Bold'), url('../fonts/TradeGothic Bold.ttf') format('ttf');
