@@ -1,15 +1,12 @@
 import React from 'react';
+import Social from "./social";
+
 
 const FollowUsSection = () => (
   <div className="mt-2 bg-utm-dark-blue container-fluid py-3">
     <section className="align-content-center text-center py-2">
-      <h4>Follow Uhome</h4>
-      <ul className="list-unstyled">
-        <li className="list-inline-item">Instagram</li>
-        <li className="list-inline-item">Twitter</li>
-        <li className="list-inline-item">YouTube</li>
-        <li className="list-inline-item">More Social Media</li>
-      </ul>
+      <Social/>
+      <p> UNIVERSITY OF TORONTO - SINCE 1827</p>
     </section>
   </div>
 );
