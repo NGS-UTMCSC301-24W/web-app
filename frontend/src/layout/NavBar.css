@@ -1,3 +1,10 @@
+:root{
+  --heading-font: 'Playfair Display', serif;
+  --sub-heading-font: 'Poppins', sans-serif;
+  --utm-main-blue: #002a5c;
+  --utm-secondary-blue: #337ab7;
+  --utm-dark-blue: #001228;
+=======
 @font-face {
   font-family: 'TradeGothic Bold';
   src: local('TradeGothic Bold'), url('../fonts/TradeGothic Bold.ttf') format('ttf');
@@ -23,3 +30,22 @@
     padding: 10px 20px; /* Adjust padding, if necessary */
     /* Add any other shared styles here */
   }
+
+.bg-primary{
+    background-color: var(--utm-main-blue) !important;
+}
+
+.bg-secondary {
+    background-color: var(--utm-secondary-blue) !important;
+}
+
+.bg-utm-dark-blue{
+    background-color: var(--utm-dark-blue);
+}
+
+.nav-fill:hover {
+  padding: 40px;
+  font-weight: 600;
+  border: solid var(--utm-secondary-blue) 2px;
+  border-radius: 10px;
+}

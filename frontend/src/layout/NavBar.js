@@ -25,53 +25,16 @@ const Logo = () => (
 );
 
 const SignIn = () => (
-  <Link className="navbar-brand p-4 sign-in-link" to="/login">
+  <Link className="navbar-brand p-4 nav-fill sign-in-link" to="/login">
     Login
   </Link>
 );
 
 const Register = () => (
-  <Link className="navbar-brand p-4 log-in-link" to="/registration">
+  <Link className="navbar-brand p-4 nav-fill log-in-link" to="/registration">
     Register
   </Link>
 );
-
-
-const DropdownSelect = () => {
-  const history = useHistory();
-  const [selectedOption, setSelectedOption] = useState('/');
-  const { sharedState } = useSharedState();
-
-  const handleChange = (event) => {
-    const selectedValue = event.target.value;
-    setSelectedOption(selectedValue);
-    history.push(selectedValue);
-  };
-
-  return (
-    <select
-      className="form-select"
-      style={{ width: '150px' }}
-      value={selectedOption}
-      onChange={handleChange}
-    >
-      <option value="/">Home</option>
-      {sharedState.isLoggedIn ? (
-        <>
-          <option value="/profile">Profile</option>
-          {sharedState.role !== 'user' && (
-            <option value="/create-listing">Create Listing</option>
-          ) }
-          <option value="/listing">Filter</option>
-          <option value="/discussion-board">Discussion Board</option>
-        </>
-      ) : (
-        <>
-        </>
-      )}
-    </select>
-  );
-};
 
 const NavBar = () => {
   const history = useHistory();
@@ -108,13 +71,22 @@ const NavBar = () => {
       <div className="container-fluid">
         <Brand />
         <SearchForm onChange={onSearchChange} onSubmit={onSearchSubmit} />
-        {sharedState.isLoggedIn ? <LogoutButton /> : 
-          <div class="auth-links">
+        {sharedState.isLoggedIn && (
+          <div className="nav-links">
+            <Link className="navbar-brand nav-fill p-4" to="/">Home</Link>
+            <Link className="navbar-brand nav-fill p-4" to="/profile">Profile</Link>
+            {sharedState.role !== 'user' && (
+              <Link className="navbar-brand nav-fill p-4" to="/create-listing">Create Listing</Link>
+            )}
+            <Link className="navbar-brand nav-fill p-4" to="/discussion-board">Discussion Board</Link>
+          </div>
+        )}
+         {sharedState.isLoggedIn ? <LogoutButton /> : 
+          <div className="auth-links">
             <SignIn /> 
             <Register />
           </div>
-          }
-        {sharedState.isLoggedIn ? <DropdownSelect /> : <></>}
+        }
       </div>
     </nav>
   );
