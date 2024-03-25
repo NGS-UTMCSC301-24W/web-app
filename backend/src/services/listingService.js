@@ -11,6 +11,13 @@ class ListingService {
       });
   }
 
+  async deleteListing({ id, creatorId }) {
+    return this.prisma.rentalListing.delete({ where: { id, creatorId } }).catch(e => {
+      console.error(e);
+      return false;
+    });
+  }
+
   async getListing(id) {
     return this.prisma.rentalListing.findUnique({ where: { id } })
       .catch(e => {

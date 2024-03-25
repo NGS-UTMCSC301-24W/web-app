@@ -12,8 +12,6 @@ async function createListing(req, res) {
     address: Joi.string().required(),
     price: Joi.number().min(0).required(),
     images: Joi.array().items(Joi.string()).required(),
-    latitude: Joi.number().required(),
-    longitude: Joi.number().required(),
     bedrooms: Joi.number().min(0).required(),
     bathrooms: Joi.number().min(0).required(),
     structuralType: Joi.string().valid("HOUSE", "BASEMENT", "APARTMENT", "CONDO", "ROOM").required(),
@@ -24,10 +22,9 @@ async function createListing(req, res) {
     return res.status(400).json(validation.error.details.map(detail => detail.message).join(", "));
   }
 
-  const { latitude, longitude, bedrooms, bathrooms, ...rest } = validation.value;
+  const { bedrooms, bathrooms, ...rest } = validation.value;
   const newListing = {
     ...rest,
-    location: { coordinates: [longitude, latitude] },
     roomCount: { bedrooms, bathrooms },
   };
 
@@ -39,6 +36,29 @@ async function createListing(req, res) {
   }
 
   return res.status(201).json(result);
+}
+
+async function deleteListing(req, res) {
+  const validation = Joi.object({
+    id: Joi.string().required(),
+    creatorId: Joi.string().required(),
+  }).validate({
+    ...req.body,
+    creatorId: req.session.user.id,
+  }, { abortEarly: false });
+  
+  if (validation.error) {
+    return res.status(400).json(validation.error.details.map(detail => detail.message).join(", "));
+  }
+
+  const listingService = new ListingService(req.app.locals.prisma);
+  const result = await listingService.deleteListing(validation.value);
+
+  if (!result) {
+    return res.status(404).json(`Unable to delete listing.`);
+  }
+
+  return res.status(200).json(result);
 }
 
 async function getUploadImageUrl(req, res) {
@@ -111,6 +131,7 @@ async function getListing(req, res) {
 
 module.exports = {
   createListing,
+  deleteListing,
   getUploadImageUrl,
   getAllListings,
   getFilteredListings,

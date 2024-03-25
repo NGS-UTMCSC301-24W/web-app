@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import constants from "../../constants.json";
-import CoordinatePicker from './CoordinatePicker';
 import FormField from './FormField';
 import UploadManager from './UploadManager';
 import SelectField from './SelectField';
@@ -15,8 +14,6 @@ const CreateListingPage = () => {
     address: "",
     price: 0,
     images: [],
-    latitude: constants.UTM_LOCATION[1],
-    longitude: constants.UTM_LOCATION[0],
     bedrooms: 1,
     bathrooms: 1,
     structuralType: "HOUSE",
