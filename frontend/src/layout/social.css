@@ -1,0 +1,13 @@
+.social-container {
+    padding: 20px;
+}
+a.social {
+    margin: 0 1rem;
+    transition: transform 250ms;
+    display: inline-block;
+    color: #007fa3;
+  }
+  a.social:hover {
+    transform: translateY(-4px);
+    color: #007191;
+  }
