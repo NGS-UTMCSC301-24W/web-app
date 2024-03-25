@@ -73,4 +73,33 @@
     height: 20rem; /* Set a fixed height for the images */
     object-fit: cover; /* Ensure the images cover the entire Carousel item */
   }
+
+.filter-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-toggle {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.filter-input {
+  flex: 0 0 48%;
+  margin-bottom: 10px;
+}
+
+.apply-filter-button {
+  flex: 0 0 100%;
+}
+
   
