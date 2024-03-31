@@ -98,6 +98,8 @@ async function getUser(req, res) {
       console.log('-----------')
     }
 
+    delete user.password;
+
     // If the user is found, send it in the response
     res.status(200).json(user);
   } catch (error) {
@@ -117,6 +119,8 @@ async function getSessionUser(req, res) {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
+
+    delete user.password;
 
     res.status(200).json(user);
   } catch (error) {
