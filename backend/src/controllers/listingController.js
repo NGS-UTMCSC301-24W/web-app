@@ -15,8 +15,12 @@ async function createListing(req, res) {
     bedrooms: Joi.number().min(0).required(),
     bathrooms: Joi.number().min(0).required(),
     structuralType: Joi.string().valid("HOUSE", "BASEMENT", "APARTMENT", "CONDO", "ROOM").required(),
-    leaser: Joi.string().valid("OWNER", "ROOMMATE").required()
-  }).validate(req.body, { abortEarly: false });
+    leaser: Joi.string().valid("OWNER", "ROOMMATE").required(),
+    creatorId: Joi.string().required(),
+  }).validate({
+    ...req.body,
+    creatorId: req.session.user.id
+  }, { abortEarly: false });
 
   if (validation.error) {
     return res.status(400).json(validation.error.details.map(detail => detail.message).join(", "));
