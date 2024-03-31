@@ -37,7 +37,6 @@ const SearchPage = ({ location }) => {
             let url = `${constants.API_BASE_URL}/listings/filter?${filteredParameters}`;
             const response = await fetch(url);
             const data = await response.json();
-            console.log(data);
             setFilteredResults(data);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -60,6 +59,7 @@ const SearchPage = ({ location }) => {
     const matchingListings = currentListings.filter(listing => {
         return filteredResults.some(filteredListing => filteredListing.id === listing.id);
     });
+    console.log(matchingListings);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -170,6 +170,7 @@ const SearchPage = ({ location }) => {
                             <div className="card-body">
                                 <h5 className="card-title">Title: {results.title}</h5>
                                 <p className="card-text"><b>Description:</b> {results.description}</p>
+                                <p className='card-text'><b>Address:</b> {results.address}</p>
                                 <p className="card-text">
                                     <b>Room Details:</b>
                                     {results.roomCount ? ` ${results.roomCount.bedrooms} Bedrooms, ${results.roomCount.bathrooms} Bathrooms` : ' Room details not available'}

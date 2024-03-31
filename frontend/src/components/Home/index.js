@@ -207,6 +207,7 @@ const Listings = () => {
                             <div className="card-body">
                                 <h5 className="card-title">Title: {listing.title}</h5>
                                 <p className="card-text"><b>Description:</b> {listing.description}</p>
+                                <p className='card-text'><b>Address:</b> {listing.address}</p>
                                 <p className="card-text">
                                     <b>Room Details:</b>
                                     {listing.roomCount ? ` ${listing.roomCount.bedrooms} Bedrooms, ${listing.roomCount.bathrooms} Bathrooms` : ' Room details not available'}

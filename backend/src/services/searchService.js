@@ -6,9 +6,12 @@ const searchRentalListings = async (query) => {
     const results = await prisma.rentalListing.findMany({
       where: {
         OR: [
-          { title: { contains: query } },
-          { description: { contains: query } },
-          { address: { contains: query } },
+          { title: { contains: query, 
+            mode: 'insensitive' } },
+          { description: { contains: query, 
+            mode: 'insensitive' } },
+          { address: { contains: query, 
+            mode: 'insensitive' } },
           // Add more fields as needed
         ],
       },
