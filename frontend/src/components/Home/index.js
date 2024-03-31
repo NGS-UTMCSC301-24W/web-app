@@ -87,7 +87,7 @@ const Listings = () => {
     };
 
     return (
-        <div>
+        <>
             <Carousel>
                 <Carousel.Item>
                     <img
@@ -104,126 +104,130 @@ const Listings = () => {
                     />
                 </Carousel.Item>
             </Carousel>
-            <div className="filter-card">
-                <div className="filter-toggle" onClick={toggleFilterVisibility}>
-                    <h3>Filter</h3>
-                    <span>{isFilterVisible ? 'Hide' : 'Show'}</span>
-                </div>
-                {isFilterVisible && (
-                    <div className="filter-row">
-                        {/* Filter inputs */}
-                        <div className="filter-input">
-                            <label>Bedrooms:</label>
-                            <select
-                                name="bedrooms"
-                                value={filter.bedrooms}
-                                onChange={handleFilterChange}
-                                className={filter.bedrooms === '' ? 'required' : ''}
-                            >
-                                <option value="">
-                                    Any
-                                </option>
-                                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100].map((value) => (
-                                    <option key={value} value={value}>
-                                        {value}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
 
-                        <div className="filter-input">
-                            <label>Bathrooms:</label>
-                            <select
-                                name="bathrooms"
-                                value={filter.bathrooms}
-                                onChange={handleFilterChange}
-                                className={filter.bathrooms === '' ? 'required' : ''}
-                            >
-                                <option value="">
-                                    Any
-                                </option>
-                                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
-                                    <option key={value} value={value}>
-                                        {value}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div className="filter-input">
-                            <label>Price Range:</label>
-                            <select name="priceRange" value={filter.priceRange} onChange={handleFilterChange}>
-                                <option value="">Any</option>
-                                {['0-500', '501-1000', '1001-2000', '2001-1000000000'].map((value) => (
-                                    <option key={value} value={value}>
-                                        {value}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div className="filter-input">
-                            <label>Structural Type:</label>
-                            <select name="structuralType" value={filter.structuralType} onChange={handleFilterChange}>
-                                <option value="">Any</option>
-                                {['HOUSE', 'BASEMENT', 'APARTMENT', 'CONDO', 'ROOM'].map((value) => (
-                                    <option key={value} value={value}>
-                                        {value}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div className="filter-input">
-                            <label>Leaser:</label>
-                            <select name="leaser" value={filter.leaser} onChange={handleFilterChange}>
-                                <option value="">Any</option>
-                                {['OWNER', 'ROOMMATE'].map((value) => (
-                                    <option key={value} value={value}>
-                                        {value}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        {/* Add more filter input fields as needed */}
-                        <button className="btn btn-primary apply-filter-button" onClick={applyFilter}>Apply Filter
-                        </button>
+            <div className="container">
+                <div className="filter-card">
+                    <div className="filter-toggle" onClick={toggleFilterVisibility}>
+                        <h3>Filter</h3>
+                        <span>{isFilterVisible ? 'Hide' : 'Show'}</span>
                     </div>
-                )}
-            </div>
+                    {isFilterVisible && (
+                        <div className="filter-row">
+                            {/* Filter inputs */}
+                            <div className="filter-input">
+                                <label>Bedrooms:</label>
+                                <select
+                                    name="bedrooms"
+                                    value={filter.bedrooms}
+                                    onChange={handleFilterChange}
+                                    className={filter.bedrooms === '' ? 'required' : ''}
+                                >
+                                    <option value="">
+                                        Any
+                                    </option>
+                                    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100].map((value) => (
+                                        <option key={value} value={value}>
+                                            {value}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
 
-            <div className="row" style={{ marginLeft: '1rem' }}>
-                {currentListings.map((listing) => (
-                    <div key={listing.id} className="col-md-6 mb-3">
-                        <div className="card card-container">
-                            {listing.images && listing.images.length > 0 && (
-                                <img
-                                    src={listing.images[0]}
-                                    className="card-img-top"
-                                    alt={listing.title}
-                                />
-                            )}
-                            <div className="card-body">
-                                <h5 className="card-title">Title: {listing.title}</h5>
-                                <p className="card-text"><b>Description:</b> {listing.description}</p>
-                                <p className='card-text'><b>Address:</b> {listing.address}</p>
-                                <p className="card-text">
-                                    <b>Room Details:</b>
-                                    {listing.roomCount ? ` ${listing.roomCount.bedrooms} Bedrooms, ${listing.roomCount.bathrooms} Bathrooms` : ' Room details not available'}
-                                </p>
-                                <p className="card-text"><b>Price:</b> {listing.price}</p>
-                                <Link to={sharedState.isLoggedIn ? `/list/${listing.id}` : '/login'}
-                                    className="btn btn-primary card-link">
-                                    {sharedState.isLoggedIn ? 'View Details' : 'Login to View Details'}
-                                </Link>
-                                {sharedState.userId === listing.creatorId && (
-                                    <button className="btn btn-primary card-link" onClick={() => deleteListing(listing.id)}>Delete</button>
+                            <div className="filter-input">
+                                <label>Bathrooms:</label>
+                                <select
+                                    name="bathrooms"
+                                    value={filter.bathrooms}
+                                    onChange={handleFilterChange}
+                                    className={filter.bathrooms === '' ? 'required' : ''}
+                                >
+                                    <option value="">
+                                        Any
+                                    </option>
+                                    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
+                                        <option key={value} value={value}>
+                                            {value}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="filter-input">
+                                <label>Price Range:</label>
+                                <select name="priceRange" value={filter.priceRange} onChange={handleFilterChange}>
+                                    <option value="">Any</option>
+                                    {['0-500', '501-1000', '1001-2000', '2001-1000000000'].map((value) => (
+                                        <option key={value} value={value}>
+                                            {value}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="filter-input">
+                                <label>Structural Type:</label>
+                                <select name="structuralType" value={filter.structuralType} onChange={handleFilterChange}>
+                                    <option value="">Any</option>
+                                    {['HOUSE', 'BASEMENT', 'APARTMENT', 'CONDO', 'ROOM'].map((value) => (
+                                        <option key={value} value={value}>
+                                            {value}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="filter-input">
+                                <label>Leaser:</label>
+                                <select name="leaser" value={filter.leaser} onChange={handleFilterChange}>
+                                    <option value="">Any</option>
+                                    {['OWNER', 'ROOMMATE'].map((value) => (
+                                        <option key={value} value={value}>
+                                            {value}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Add more filter input fields as needed */}
+                            <button className="btn btn-primary apply-filter-button" onClick={applyFilter}>Apply Filter
+                            </button>
+                        </div>
+                    )}
+                </div>
+
+
+                <div className="row" style={{ marginLeft: '1rem' }}>
+                    {currentListings.map((listing) => (
+                        <div key={listing.id} className="col-md-6 mb-3">
+                            <div className="card card-container">
+                                {listing.images && listing.images.length > 0 && (
+                                    <img
+                                        src={listing.images[0]}
+                                        className="card-img-top"
+                                        alt={listing.title}
+                                    />
                                 )}
+                                <div className="card-body">
+                                    <h5 className="card-title">Title: {listing.title}</h5>
+                                    <p className="card-text"><b>Description:</b> {listing.description}</p>
+                                    <p className='card-text'><b>Address:</b> {listing.address}</p>
+                                    <p className="card-text">
+                                        <b>Room Details:</b>
+                                        {listing.roomCount ? ` ${listing.roomCount.bedrooms} Bedrooms, ${listing.roomCount.bathrooms} Bathrooms` : ' Room details not available'}
+                                    </p>
+                                    <p className="card-text"><b>Price:</b> {listing.price}</p>
+                                    <Link to={sharedState.isLoggedIn ? `/list/${listing.id}` : '/login'}
+                                        className="btn btn-primary card-link">
+                                        {sharedState.isLoggedIn ? 'View Details' : 'Login to View Details'}
+                                    </Link>
+                                    {sharedState.userId === listing.creatorId && (
+                                        <button className="btn btn-primary card-link" onClick={() => deleteListing(listing.id)}>Delete</button>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
 
             <div className="pagination d-flex justify-content-center mt-4">
@@ -234,10 +238,8 @@ const Listings = () => {
                     </span>
                 ))}
             </div>
-        </div>
+        </>
     );
-
-
 }
 
 export default Listings;
