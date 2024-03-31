@@ -113,12 +113,12 @@ const Listings = () => {
                     <div className="filter-row">
                         {/* Filter inputs */}
                         <div className="filter-input">
-                            <label>Bedrooms:</label>
+                            <label>Bedrooms</label>
                             <select
                                 name="bedrooms"
                                 value={filter.bedrooms}
                                 onChange={handleFilterChange}
-                                className={filter.bedrooms === '' ? 'required' : ''}
+                                className={`${filter.bedrooms === '' ? 'required' : ''} select-box`}
                             >
                                 <option value="">
                                     Any
@@ -132,12 +132,12 @@ const Listings = () => {
                         </div>
 
                         <div className="filter-input">
-                            <label>Bathrooms:</label>
+                            <label>Bathrooms</label>
                             <select
                                 name="bathrooms"
                                 value={filter.bathrooms}
                                 onChange={handleFilterChange}
-                                className={filter.bathrooms === '' ? 'required' : ''}
+                                className={`${filter.bathrooms === '' ? 'required' : ''} select-box`}
                             >
                                 <option value="">
                                     Any
@@ -151,8 +151,9 @@ const Listings = () => {
                         </div>
 
                         <div className="filter-input">
-                            <label>Price Range:</label>
-                            <select name="priceRange" value={filter.priceRange} onChange={handleFilterChange}>
+                            <label>Price Range</label>
+                            <select name="priceRange" value={filter.priceRange} onChange={handleFilterChange} 
+                            className='select-box'>
                                 <option value="">Any</option>
                                 {['0-500', '501-1000', '1001-2000', '2001-1000000000'].map((value) => (
                                     <option key={value} value={value}>
@@ -163,8 +164,9 @@ const Listings = () => {
                         </div>
 
                         <div className="filter-input">
-                            <label>Structural Type:</label>
-                            <select name="structuralType" value={filter.structuralType} onChange={handleFilterChange}>
+                            <label>Structural Type</label>
+                            <select name="structuralType" value={filter.structuralType} onChange={handleFilterChange}
+                            className='select-box'>
                                 <option value="">Any</option>
                                 {['HOUSE', 'BASEMENT', 'APARTMENT', 'CONDO', 'ROOM'].map((value) => (
                                     <option key={value} value={value}>
@@ -175,8 +177,9 @@ const Listings = () => {
                         </div>
 
                         <div className="filter-input">
-                            <label>Leaser:</label>
-                            <select name="leaser" value={filter.leaser} onChange={handleFilterChange}>
+                            <label>Leaser</label>
+                            <select name="leaser" value={filter.leaser} onChange={handleFilterChange}
+                            className='select-box'>
                                 <option value="">Any</option>
                                 {['OWNER', 'ROOMMATE'].map((value) => (
                                     <option key={value} value={value}>
@@ -185,10 +188,6 @@ const Listings = () => {
                                 ))}
                             </select>
                         </div>
-
-                        {/* Add more filter input fields as needed */}
-                        <button className="btn btn-primary apply-filter-button" onClick={applyFilter}>Apply Filter
-                        </button>
                     </div>
                 )}
             </div>

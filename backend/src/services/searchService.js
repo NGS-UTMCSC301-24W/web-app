@@ -12,7 +12,6 @@ const searchRentalListings = async (query) => {
             mode: 'insensitive' } },
           { address: { contains: query, 
             mode: 'insensitive' } },
-          // Add more fields as needed
         ],
       },
     });

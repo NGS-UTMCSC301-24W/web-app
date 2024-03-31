@@ -43,7 +43,7 @@
   .card-text .label {
     font-weight: bold;
   }
-  
+
   .btn-primary{
     background-color: #337ab7;
     padding: 0.75% 1.3%;
@@ -76,14 +76,21 @@
 
 .filter-card {
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 20px;
+  margin-bottom: 5px;
   margin-bottom: 20px;
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+  background-color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease;
 }
 
 .filter-toggle {
   display: flex;
   justify-content: space-between;
   cursor: pointer;
+  border-bottom: 1px solid #ccc;
 }
 
 .filter-row {
@@ -96,10 +103,23 @@
 .filter-input {
   flex: 0 0 48%;
   margin-bottom: 10px;
+  margin-left: 20px;
 }
 
 .apply-filter-button {
   flex: 0 0 100%;
 }
+
+.filter-card:hover {
+  background-color: #337ab7; 
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.select-box {
+  margin-left: 10px; 
+  background-color: #ffffff;
+}
+
 
   
