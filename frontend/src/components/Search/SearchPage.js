@@ -195,7 +195,6 @@ const SearchPage = ({ location }) => {
             </div>
         </div>
     );
-
 };
 
 export default SearchPage;
