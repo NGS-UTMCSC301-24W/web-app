@@ -56,9 +56,10 @@ const CreateListingPage = () => {
       });
 
       if (response.status === 201) {
-        setAlertData({ type: 'success', message: 'Listing created!' });
+        setAlertData({ type: 'success', message: 'Listing created! Redirecting to your listing...' });
+        const data = await response.json();
         setTimeout(() => {
-          history.push('/');
+          history.push(`/list/${data.id}`);
         }, 1000);
       } else if (response.status === 400) {
         const errorMessage = await response.json();

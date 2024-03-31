@@ -9,7 +9,6 @@
     border-radius: 10px;
     overflow: hidden;
     flex: 1;
-    width: 45vw; /* Set the desired width for the cards */
     margin: 10px; /* Adjust margin as needed */
   }
   

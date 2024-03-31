@@ -87,7 +87,7 @@ const Listings = () => {
     };
 
     return (
-        <div>
+        <>
             <Carousel>
                 <Carousel.Item>
                     <img
@@ -192,38 +192,38 @@ const Listings = () => {
                 )}
             </div>
 
-            <div className="row" style={{ marginLeft: '1rem' }}>
-                {currentListings.map((listing) => (
-                    <div key={listing.id} className="col-md-6 mb-3">
-                        <div className="card card-container">
-                            {listing.images && listing.images.length > 0 && (
-                                <img
-                                    src={listing.images[0]}
-                                    className="card-img-top"
-                                    alt={listing.title}
-                                />
-                            )}
-                            <div className="card-body">
-                                <h5 className="card-title">Title: {listing.title}</h5>
-                                <p className="card-text"><b>Description:</b> {listing.description}</p>
-                                <p className='card-text'><b>Address:</b> {listing.address}</p>
-                                <p className="card-text">
-                                    <b>Room Details:</b>
-                                    {listing.roomCount ? ` ${listing.roomCount.bedrooms} Bedrooms, ${listing.roomCount.bathrooms} Bathrooms` : ' Room details not available'}
-                                </p>
-                                <p className="card-text"><b>Price:</b> {listing.price}</p>
-                                <Link to={sharedState.isLoggedIn ? `/list/${listing.id}` : '/login'}
-                                    className="btn btn-primary card-link">
-                                    {sharedState.isLoggedIn ? 'View Details' : 'Login to View Details'}
-                                </Link>
-                                {sharedState.userId === listing.creatorId && (
-                                    <button className="btn btn-primary card-link" onClick={() => deleteListing(listing.id)}>Delete</button>
+                <div className="row" style={{ marginLeft: '1rem' }}>
+                    {currentListings.map((listing) => (
+                        <div key={listing.id} className="col-md-6 mb-3">
+                            <div className="card card-container">
+                                {listing.images && listing.images.length > 0 && (
+                                    <img
+                                        src={listing.images[0]}
+                                        className="card-img-top"
+                                        alt={listing.title}
+                                    />
                                 )}
+                                <div className="card-body">
+                                    <h5 className="card-title">Title: {listing.title}</h5>
+                                    <p className="card-text"><b>Description:</b> {listing.description}</p>
+                                    <p className='card-text'><b>Address:</b> {listing.address}</p>
+                                    <p className="card-text">
+                                        <b>Room Details:</b>
+                                        {listing.roomCount ? ` ${listing.roomCount.bedrooms} Bedrooms, ${listing.roomCount.bathrooms} Bathrooms` : ' Room details not available'}
+                                    </p>
+                                    <p className="card-text"><b>Price:</b> {listing.price}</p>
+                                    <Link to={sharedState.isLoggedIn ? `/list/${listing.id}` : '/login'}
+                                        className="btn btn-primary card-link">
+                                        {sharedState.isLoggedIn ? 'View Details' : 'Login to View Details'}
+                                    </Link>
+                                    {sharedState.userId === listing.creatorId && (
+                                        <button className="btn btn-primary card-link" onClick={() => deleteListing(listing.id)}>Delete</button>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
 
             <div className="pagination d-flex justify-content-center mt-4">
                 {Array.from({ length: Math.ceil(listings.length / listingsPerPage) }, (_, index) => (
@@ -233,10 +233,8 @@ const Listings = () => {
                     </span>
                 ))}
             </div>
-        </div>
+        </>
     );
-
-
-}
+};
 
 export default Listings;
