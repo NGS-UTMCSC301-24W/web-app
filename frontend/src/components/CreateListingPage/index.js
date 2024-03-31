@@ -4,6 +4,7 @@ import FormField from './FormField';
 import UploadManager from './UploadManager';
 import SelectField from './SelectField';
 import { useHistory } from 'react-router-dom';
+import { Alert } from 'react-bootstrap';
 
 const CreateListingPage = () => {
   const history = useHistory();
@@ -25,6 +26,8 @@ const CreateListingPage = () => {
     description: true,
     address: true,
   });
+
+  const [alertData, setAlertData] = useState({}); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,13 +56,15 @@ const CreateListingPage = () => {
       });
 
       if (response.status === 201) {
-        alert("Listing created!");
-        history.push('/');
+        setAlertData({ type: 'success', message: 'Listing created!' });
+        setTimeout(() => {
+          history.push('/');
+        }, 1000);
       } else if (response.status === 400) {
         const errorMessage = await response.json();
-        alert("Failed to create listing. Reason: " + errorMessage);
+        setAlertData({ type: 'danger', message: `Failed to create listing. Reason: ${errorMessage}` });
       } else {
-        alert("Failed to create listing");
+        setAlertData({ type: 'danger', message: 'Failed to create listing' });
       }
     }
   };
@@ -161,6 +166,11 @@ const CreateListingPage = () => {
         />
       </div>
       <UploadManager onChange={handleChange} /> <br />
+      {alertData.message && (
+        <Alert variant={alertData.type} onClose={() => setAlertData({})} dismissible>
+          {alertData.message}
+        </Alert>
+      )}
       <div className="text-center">
         <button className="btn btn-primary mt-3" onClick={createListing}>Create Listing!</button>
       </div>
