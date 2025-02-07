@@ -19,7 +19,7 @@ app.use(cors({
 }));
 
 const store = MongoDBStore.create({
-  mongoUrl: 'mongodb+srv://uhome:jIUYvEAfe0Ei5LBK@uhomecluster.n5eb67d.mongodb.net/db?authSource=admin&retryWrites=true&w=majority',
+  mongoUrl: 'mongodb+srv://24kgold12321:Testtest123..@cluster0.qs1fu.mongodb.net/uhome',
   dbName: 'User',
 });
 

@@ -4,7 +4,11 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = "mongodb+srv://uhome:jIUYvEAfe0Ei5LBK@uhomecluster.n5eb67d.mongodb.net/db?authSource=admin&retryWrites=true&w=majority"
+  url      = "mongodb+srv://24kgold12321:Testtest123..@cluster0.qs1fu.mongodb.net/uhome"
+}
+
+model uhome {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 }
 
 model RentalListing {
